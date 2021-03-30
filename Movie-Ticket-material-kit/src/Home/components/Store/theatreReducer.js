@@ -4,7 +4,7 @@ const initStat = {
   error: null,
   theatre: {},
 };
-const theatreReducer = (state = initStat, action) => {
+const TheatreReducer = (state = initStat, action) => {
   switch (action.type) {
     case 'LOADING_THEATRE':
       return {
@@ -35,6 +35,20 @@ const theatreReducer = (state = initStat, action) => {
         error: null,
       };
 
+    case 'ADD_THEATRE':
+      return {
+        ...state,
+        theatre: action.payload,
+        loading: false,
+        error: null,
+      };
+    case 'UPDATE_THEATRE':
+      return {
+        ...state,
+        theatre: action.payload,
+        loading: false,
+        error: null,
+      };
     case 'ERROR_THEATRES':
       return {
         ...state,
@@ -46,4 +60,4 @@ const theatreReducer = (state = initStat, action) => {
       return state;
   }
 };
-export default theatreReducer;
+export default TheatreReducer;

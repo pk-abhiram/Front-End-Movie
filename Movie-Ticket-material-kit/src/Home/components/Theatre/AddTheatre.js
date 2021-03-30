@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-import { Container, Row } from 'react-bootstrap';
+import { Button, Typography } from '@material-ui/core';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
+import { v4 as uuidv4 } from 'uuid';
+import IconButton from '@material-ui/core/IconButton';
+import { fetchMovie } from '../Actions/MovieActions';
+import { addTheatre } from '../Actions/TheatreActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import ListItemText from '@material-ui/core/ListItemText';
+import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
+import MenuItem from '@material-ui/core/MenuItem';
+import hist from './hist';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -10,87 +23,271 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
     },
   },
+  screen: {
+    margin: theme.spacing(1),
+  },
 }));
 
 function AddTheatre() {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [theatreName, setTheatreName] = useState();
-  const [theatreCity, setTheatreCity] = useState();
-  const [managerName, setManagerName] = useState();
-  const [managerContact, setManagerContact] = useState();
+  const [theatreName, setTheatreName] = useState('');
+  const [theatreCity, setTheatreCity] = useState('');
+  const [managerName, setManagerName] = useState('');
+  const [managerContact, setManagerContact] = useState('');
+  const [movieArr, setMovieArr] = React.useState([]);
+  const [inputFields, setInputFields] = useState([
+    { id: uuidv4(), screenName: '', columns: 1, rows: 1 },
+  ]);
 
+  const fetchTheatre = useSelector((state) => state.theatre.theatre);
+
+  const theatreNameRef = React.useRef();
+  const theatreCityRef = React.useRef();
+  const managerNameRef = React.useRef();
+  const managerContactRef = React.useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    try {
+      if (theatreName === '') {
+        theatreNameRef.current.focus();
+        throw new Error('Fill Theatre Name');
+      }
+      if (theatreCity === '') {
+        theatreCityRef.current.focus();
+        throw new Error('Fill Theatre City');
+      }
+      if (managerName === '') {
+        managerNameRef.current.focus();
+        throw new Error('Fill Manager Name');
+      }
+      if (managerContact === '') {
+        managerContactRef.current.focus();
+        throw new Error('Fill Manager Contact');
+      }
+
+      var screens = inputFields.filter((s) => {
+        if (s.screenName !== '') {
+          return s;
+        }
+        return console.log();
+      });
+      const theatre = {
+        theatreName: theatreName,
+        theatreCity: theatreCity,
+        managerName: managerName,
+        managerContact: managerContact,
+        screens: screens,
+        movieArr: movieArr,
+      };
+
+      dispatch(addTheatre(theatre));
+      detailRedirect();
+    } catch (Exception) {
+      console.log(Exception.message);
+    }
+  };
+
+  const detailRedirect = () => {
+    if (fetchTheatre.theatreId !== undefined) {
+      hist.push('/theatre/detail/' + fetchTheatre.theatreId);
+    }
+  };
+  const handleChangeInput = (id, event) => {
+    const newInputFields = inputFields.map((i) => {
+      if (id === i.id) {
+        i[event.target.name] = event.target.value;
+      }
+      return i;
+    });
+    setInputFields(newInputFields);
+  };
+
+  const handleAddFields = () => {
+    setInputFields([
+      ...inputFields,
+      { id: uuidv4(), screenName: '', columns: 1, rows: 1 },
+    ]);
+  };
+
+  const handleRemoveFields = (id) => {
+    const values = [...inputFields];
+    values.splice(
+      values.findIndex((value) => value.id === id),
+      1
+    );
+    setInputFields(values);
+  };
+
+  const movies = useSelector((state) => state.movie.movies);
+  //Fetch Movie
   useEffect(() => {
-    console.log(theatreName);
-    console.log(theatreCity);
-    console.log(managerName);
-    console.log(managerContact);
-  }, [theatreName, theatreCity, managerName, managerContact]);
+    dispatch(fetchMovie());
+  }, [dispatch]);
+
+  const handleChangeM = (event) => {
+    setMovieArr(event.target.value);
+  };
 
   return (
     <div>
-      <Container>
-        <h3>Fill Details:</h3>
-        <form
-          className={classes.root}
-          noValidate
-          autoComplete='off'
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log('Submitted');
+      <h3>Fill Details:</h3>
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete='on'
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <Typography variant='h6'>Theatre Details:</Typography>
+        <TextField
+          label='Theatre Name'
+          variant='outlined'
+          required
+          autoFocus={true}
+          type='small'
+          style={{ width: 155 }}
+          onChange={(e) => {
+            setTheatreName(e.target.value);
           }}
+          inputRef={theatreNameRef}
+        />
+        <TextField
+          label='Theatre City'
+          variant='outlined'
+          required
+          type='small'
+          style={{ width: 155 }}
+          onChange={(e) => {
+            setTheatreCity(e.target.value);
+          }}
+          inputRef={theatreCityRef}
+          className={classes.screen}
+        />
+        <TextField
+          label='Manager Name'
+          variant='outlined'
+          required
+          type='small'
+          style={{ width: 155 }}
+          inputRef={managerNameRef}
+          onChange={(e) => {
+            setManagerName(e.target.value);
+          }}
+        />
+        <TextField
+          label='Manager Contact'
+          variant='outlined'
+          required
+          type='small'
+          style={{ width: 155 }}
+          inputRef={managerContactRef}
+          onChange={(e) => {
+            setManagerContact(e.target.value);
+          }}
+        />
+        <Typography variant='h6' children='p'>
+          Screens Detail:<p>(Leave Blank if no Screens)</p>
+        </Typography>
+        {inputFields.map((inputField) => (
+          <div key={inputField.id} style={{ width: '100%', padding: 5 }}>
+            <TextField
+              name='screenName'
+              label='screenName'
+              variant='outlined'
+              size='small'
+              type='text'
+              value={inputField.screenName}
+              onChange={(event) => handleChangeInput(inputField.id, event)}
+              style={{ margin: '10px' }}
+            />
+            <TextField
+              name='columns'
+              label='columns'
+              variant='outlined'
+              size='small'
+              type='number'
+              value={inputField.columns}
+              onChange={(event) => {
+                if (event.target.value < 1) {
+                  event.target.value = 1;
+                }
+                handleChangeInput(inputField.id, event);
+              }}
+              className={classes.screen}
+            />
+            <TextField
+              name='rows'
+              label='rows'
+              variant='outlined'
+              size='small'
+              value={inputField.rows}
+              type='number'
+              onChange={(event) => {
+                if (event.target.value < 1) {
+                  event.target.value = 1;
+                }
+                handleChangeInput(inputField.id, event);
+              }}
+              className={classes.screen}
+            />
+            <IconButton
+              disabled={inputFields.length === 1}
+              onClick={() => handleRemoveFields(inputField.id)}
+            >
+              <RemoveIcon />
+            </IconButton>
+            <IconButton onClick={handleAddFields}>
+              <AddIcon />
+            </IconButton>
+          </div>
+        ))}
+
+        <InputLabel id='mutiple-checkbox-label'>Movies:</InputLabel>
+        <Select
+          labelId='mutiple-checkbox-label'
+          id='demo-mutiple-checkbox'
+          multiple
+          value={movieArr}
+          onChange={handleChangeM}
+          input={<Input />}
+          renderValue={(selected) => 'Movies Selected: ' + selected.length}
+          fullWidth={true}
+          variant='outlined'
         >
-          <TextField
-            id='outlined-basic'
-            label='Theatre Name'
-            variant='outlined'
-            required
-            autoFocus={true}
-            style={{ width: 150 }}
-            onChange={(e) => {
-              setTheatreName(e.target.value);
-              return window.removeEventListener(e);
-            }}
-          />
-          <TextField
-            id='outlined-basic'
-            label='Theatre City'
-            variant='outlined'
-            required
-            style={{ width: 150 }}
-            onChange={(e) => {
-              setTheatreCity(e.target.value);
-              return window.removeEventListener(e);
-            }}
-          />
-          <TextField
-            id='outlined-basic'
-            label='Manager Name'
-            variant='outlined'
-            required
-            style={{ width: 150 }}
-            onChange={(e) => {
-              setManagerName(e.target.value);
-              return window.removeEventListener(e);
-            }}
-          />
-          <TextField
-            id='outlined-basic'
-            label='Manager Contact'
-            variant='outlined'
-            required
-            style={{ width: 150 }}
-            onChange={(e) => {
-              setManagerContact(e.target.value);
-              return window.removeEventListener(e);
-            }}
-          />
-          <Row>
-            <Button type='Submit' variant='contained' color='primary'>
-              Submit
-            </Button>
-          </Row>
-        </form>
-      </Container>
+          {movies.map((movie) => (
+            <MenuItem
+              key={movie.movieId}
+              value={movie}
+              style={{ overflowX: 'auto' }}
+            >
+              <Checkbox checked={movieArr.indexOf(movie) > -1} />
+              <ListItemText
+                primary={
+                  movie.movieId +
+                  'Name:' +
+                  movie.movieName +
+                  ' ,Language: ' +
+                  movie.language +
+                  ' ,Genre: ' +
+                  movie.movieGenre +
+                  ' ,Hours: ' +
+                  movie.movieHours +
+                  ' ,Desc: ' +
+                  movie.description
+                }
+              />
+            </MenuItem>
+          ))}
+        </Select>
+        <br />
+        <Button type='Submit' variant='contained' color='primary'>
+          Submit
+        </Button>
+      </form>
     </div>
   );
 }

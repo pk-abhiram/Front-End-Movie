@@ -3,29 +3,43 @@ import { DataGrid, GridToolbar } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { deleteTheatreByID, fetchTheatre } from '../Actions/actions';
+import { deleteTheatreByID, fetchTheatre } from '../Actions/TheatreActions';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+}
 
 export const CustomLocaleTextGrid = () => {
   const dispatch = useDispatch();
   const [del, setDel] = React.useState(false); //State to refresh after delete
+  React.useEffect(() => {
+    dispatch(fetchTheatre());
+    handleClose();
+  }, [del, dispatch]); //To fetch after deletion
+
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState(0);
-  function enterPassword(theatreId) {
+  const theatres = useSelector((state) => state.theatre.theatres);
+  const error = useSelector((state) => state.theatre.error);
+  const loading = useSelector((state) => state.theatre.loading);
+
+  const enterPassword = (theatreId) => {
     handleClickOpen();
     setId(theatreId);
-  }
+  };
 
-  function deleteTheatre(id) {
-    console.log(password);
-
+  async function deleteTheatre(id) {
     if (password === 'password') {
-      dispatch(deleteTheatreByID(id));
+      await dispatch(deleteTheatreByID(id));
       setDel(!del);
 
       return <div>{console.log('Deleted' + id)}</div>;
@@ -43,14 +57,6 @@ export const CustomLocaleTextGrid = () => {
   };
   const [password, setPassword] = React.useState('');
 
-  React.useEffect(() => {
-    dispatch(fetchTheatre());
-    handleClose();
-  }, [del, dispatch]); //To fetch after deletion
-
-  const theatres = useSelector((state) => state.theatres);
-  const error = useSelector((state) => state.error);
-  const loading = useSelector((state) => state.loading);
   const options = theatres.map(function (row) {
     return {
       id: row.theatreId,
@@ -67,9 +73,21 @@ export const CustomLocaleTextGrid = () => {
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Theatre Name', width: 180 },
-    { field: 'theatreCity', headerName: 'Theatre City', width: 180 },
-    { field: 'managerName', headerName: 'Manager Name', width: 200 },
-    { field: 'managerContact', headerName: 'Manager Contact', width: 200 },
+    {
+      field: 'theatreCity',
+      headerName: 'Theatre City',
+      width: 180,
+    },
+    {
+      field: 'managerName',
+      headerName: 'Manager Name',
+      width: 200,
+    },
+    {
+      field: 'managerContact',
+      headerName: 'Manager Contact',
+      width: 200,
+    },
     {
       field: 'link',
       headerName: 'More Details',
@@ -108,8 +126,27 @@ export const CustomLocaleTextGrid = () => {
     },
   ];
 
+  //Success Msg-
+  const [sopen, setSopen] = React.useState(false);
+  const [sopenState, setSopenState] = React.useState(true);
+  const handleClickS = () => {
+    setSopen(true);
+  };
+  const handleCloseS = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSopen(false);
+  };
+
   return (
-    <div style={{ height: 600 }}>
+    <div
+      style={{ height: 600 }}
+      onMouseOver={(e) => {
+        sopenState && handleClickS();
+        setSopenState(false);
+      }}
+    >
       <Link to='/theatre/addTheatre'>
         <Button
           variant='contained'
@@ -121,8 +158,8 @@ export const CustomLocaleTextGrid = () => {
         </Button>
       </Link>
       <br />
-      {(loading && <h4>Loading...</h4>) ||
-        (error && <h4>{error}</h4>) ||
+      {(loading && <CircularProgress />) ||
+        (error && <Alert severity='error'>{error}</Alert>) ||
         (options.length === 0 && <h4>EMPTY</h4>) || (
           <DataGrid
             density='compact'
@@ -137,11 +174,16 @@ export const CustomLocaleTextGrid = () => {
               toolbarDensityStandard: 'Medium',
               toolbarDensityComfortable: 'Large',
             }}
+            onMouseOver={(e) => {
+              sopenState && handleClickS();
+              setSopenState(false);
+            }}
             components={{
               Toolbar: GridToolbar,
             }}
           />
         )}
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -176,6 +218,11 @@ export const CustomLocaleTextGrid = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar open={sopen} autoHideDuration={6000} onClose={handleCloseS}>
+        <Alert onClose={handleCloseS} severity='success'>
+          Success
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

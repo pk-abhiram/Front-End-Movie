@@ -1,6 +1,5 @@
 import Home from './Home/Home.js';
 import React from 'react';
-import { createBrowserHistory } from 'history';
 import { Router, Route, Switch } from 'react-router-dom';
 import Header from 'Home/components/Header/Header.js';
 import HeaderLinks from 'Home/components/Header/HeaderLinks.js';
@@ -11,9 +10,10 @@ import styles from 'assets/jss/material-kit-react/views/components.js';
 import classNames from 'classnames';
 import DetailTheatre from './Home/components/Theatre/DetailTheatre';
 import AddTheatre from './Home/components/Theatre/AddTheatre';
-const useStyles = makeStyles(styles);
+import hist from './Home/components/Theatre/hist';
+import UpdateTheatre from './Home/components/Theatre/UpdateTheatre';
 
-var hist = createBrowserHistory();
+const useStyles = makeStyles(styles);
 
 function App() {
   const classes = useStyles();
@@ -33,6 +33,7 @@ function App() {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <Switch>
           <Route exact path='/theatre/detail/:id' component={DetailTheatre} />
+          <Route exact path='/theatre/update/:id' component={UpdateTheatre} />
           <Route exact path='/theatre/addTheatre' component={AddTheatre} />
           <Route exact path='/theatre' component={ViewTheatre} />
           <Route exact path='/' component={Body} />

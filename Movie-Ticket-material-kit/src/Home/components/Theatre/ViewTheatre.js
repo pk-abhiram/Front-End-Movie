@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTheatre } from '../Actions/actions';
+import { fetchTheatre } from '../Actions/TheatreActions';
 import { CustomLocaleTextGrid } from './PrintTheatres';
 import { Container, Row, Col } from 'react-bootstrap';
 
 function ViewTheatre() {
+  const theatres = useSelector((state) => state.theatre.theatres);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTheatre());
   }, [dispatch]);
-
-  const theatres = useSelector((state) => state.theatres);
 
   return (
     <Container>

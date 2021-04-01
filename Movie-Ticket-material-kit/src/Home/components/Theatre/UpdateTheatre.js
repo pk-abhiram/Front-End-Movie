@@ -41,7 +41,6 @@ function UpdateTheatre() {
   const getTheatre = useSelector((state) => state.theatre.theatre);
   const detailRedirect = () => {
     if (getTheatre.theatreId !== undefined) {
-      console.log(getTheatre);
       hist.push('/theatre/detail/' + getTheatre.theatreId);
     }
   };

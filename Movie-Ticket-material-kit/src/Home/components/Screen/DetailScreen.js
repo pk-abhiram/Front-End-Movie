@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailTheatre } from '../Actions/TheatreActions';
+import { detailScreen } from '../Actions/ScreenActions';
 import { Container, Row, Col } from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -41,19 +41,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DetailTheatre() {
+function DetailScreen() {
   let id = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(detailTheatre(id.id));
+    dispatch(detailScreen(id.id));
   }, [dispatch, id.id]);
 
   const [sopen, setSopen] = useState(false);
   const [sopenState, setSopenState] = React.useState(true);
-  const theatres = useSelector((state) => state.theatre.theatre);
-  const error = useSelector((state) => state.theatre.error);
-  const loading = useSelector((state) => state.theatre.loading);
+  const screen = useSelector((state) => state.screen.screen);
+  const error = useSelector((state) => state.screen.error);
+  const loading = useSelector((state) => state.screen.loading);
   const classes = useStyles();
 
   const handleClickS = () => {
@@ -70,7 +70,7 @@ function DetailTheatre() {
     <Container>
       <center>
         <h2>INFO</h2>
-        <Link to={'/theatre/update/' + id.id} style={{ float: 'right' }}>
+        <Link to={'/screen/update/' + id.id} style={{ float: 'right' }}>
           <Button variant='contained' size='medium' color='primary'>
             Edit
           </Button>
@@ -89,7 +89,8 @@ function DetailTheatre() {
             <Col>
               <Alert severity='error'>{error}</Alert>
             </Col>
-          )) || (
+          )) ||
+          (screen && (
             <Col
               onMouseOver={(e) => {
                 sopenState && handleClickS();
@@ -100,48 +101,47 @@ function DetailTheatre() {
                 <form className={classes.root} noValidate autoComplete='off'>
                   <TextField
                     id='standard-basic'
+                    label='Screen ID'
+                    value={screen.screenId}
+                    disabled={true}
+                  />
+                  <TextField
+                    id='standard-basic'
                     label='Theatre ID'
-                    value={theatres.theatreId}
+                    value={screen.theatreId}
                     disabled={true}
                   />
                   <TextField
                     id='outlined-basic'
-                    label='Theatre Name'
+                    label='Screen Name'
                     variant='outlined'
-                    value={theatres.theatreName}
+                    value={screen.screenName}
                     disabled={true}
                   />
                   <TextField
                     id='outlined-basic'
-                    label='Theatre City'
+                    label='Rows'
                     variant='outlined'
-                    value={theatres.theatreCity}
+                    value={screen.rows}
                     disabled={true}
                   />
                   <TextField
                     id='outlined-basic'
-                    label='Manager Name'
+                    label='Columns'
                     variant='outlined'
-                    value={theatres.managerName}
-                    disabled={true}
-                  />
-                  <TextField
-                    id='outlined-basic'
-                    label='Manager Contact'
-                    variant='outlined'
-                    value={theatres.managerContact}
+                    value={screen.columns}
                     disabled={true}
                   />
                 </form>
                 <Row>
                   <Typography variant='h5' component='h6'>
-                    Movie List:
+                    Show List:
                   </Typography>
                 </Row>
-                {theatres.listOfMovies &&
-                  theatres.listOfMovies.map((movie) => {
+                {screen.showList &&
+                  screen.showList.map((show) => {
                     return (
-                      <div key={movie.movieId}>
+                      <div key={show.showId}>
                         <Row>
                           <form
                             className={classes.root1}
@@ -150,74 +150,25 @@ function DetailTheatre() {
                           >
                             <TextField
                               id='standard-basic'
-                              label='Movie Name'
-                              value={movie.movieName}
+                              label='Show Name'
+                              value={show.showName}
                               disabled={true}
                             />
                             <TextField
-                              id='standard-basic'
-                              label='Genre'
-                              value={movie.movieGenre}
+                              id='datetime-local'
+                              label='Show Start Time'
+                              value={show.showStartTime}
+                              type='datetime-local'
                               disabled={true}
+                              style={{ width: '12rem' }}
                             />
                             <TextField
-                              id='standard-basic'
-                              label='Movie Hours'
-                              value={movie.movieHours}
+                              id='datetime-local'
+                              label='Show End Time'
+                              type='datetime-local'
+                              value={show.showEndTime}
                               disabled={true}
-                            />
-                            <TextField
-                              id='standard-basic'
-                              label='Language'
-                              value={movie.language}
-                              disabled={true}
-                            />
-                            <TextField
-                              id='standard-basic'
-                              label='Desc'
-                              value={movie.description}
-                              disabled={true}
-                            />
-                          </form>
-                        </Row>
-                      </div>
-                    );
-                  })}
-                <Row>
-                  <Typography variant='h5' component='h6'>
-                    Screen List:
-                  </Typography>
-                </Row>
-                {theatres.listOfScreens &&
-                  theatres.listOfScreens.map((screen) => {
-                    return (
-                      <div key={screen.screenId}>
-                        <Row>
-                          <form
-                            className={classes.root1}
-                            noValidate
-                            autoComplete='off'
-                          >
-                            <TextField
-                              id='outlined-size-small'
-                              label='Screen Name'
-                              value={screen.screenName}
-                              disabled={true}
-                              size='small'
-                            />
-                            <TextField
-                              id='outlined-size-small'
-                              label='Rows'
-                              value={screen.rows}
-                              disabled={true}
-                              size='small'
-                            />
-                            <TextField
-                              id='outlined-size-small'
-                              label='Columns'
-                              value={screen.columns}
-                              disabled={true}
-                              size='small'
+                              style={{ width: '12rem' }}
                             />
                           </form>
                         </Row>
@@ -236,10 +187,10 @@ function DetailTheatre() {
                 </Alert>
               </Snackbar>
             </Col>
-          )}
+          ))}
       </Row>
     </Container>
   );
 }
 
-export default DetailTheatre;
+export default DetailScreen;

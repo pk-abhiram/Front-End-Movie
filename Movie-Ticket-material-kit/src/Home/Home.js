@@ -16,7 +16,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Parallax from 'Home/components/Parallax/Parallax.js';
 
 import { Link } from 'react-router-dom';
-
 const Cards = (prop) => {
   const { name, imageUrl } = prop;
   const useStyles = makeStyles({

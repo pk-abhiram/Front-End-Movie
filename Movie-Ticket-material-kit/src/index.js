@@ -6,12 +6,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import theatreReducer from './Home/components/Store/TheatreReducer';
 import movieReducer from './Home/components/Store/MovieReducer';
+import screenReducer from './Home/components/Store/ScreenReducer';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({
   theatre: theatreReducer,
   movie: movieReducer,
+  screen: screenReducer,
 });
 
 // pages for this product

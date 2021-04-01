@@ -12,7 +12,10 @@ import DetailTheatre from './Home/components/Theatre/DetailTheatre';
 import AddTheatre from './Home/components/Theatre/AddTheatre';
 import hist from './Home/components/Theatre/hist';
 import UpdateTheatre from './Home/components/Theatre/UpdateTheatre';
-
+import ViewScreen from './Home/components/Screen/ViewScreen';
+import DetailScreen from './Home/components/Screen/DetailScreen';
+import UpdateScreen from './Home/components/Screen/UpdateScreen';
+import AddScreen from './Home/components/Screen/AddScreen';
 const useStyles = makeStyles(styles);
 
 function App() {
@@ -36,6 +39,10 @@ function App() {
           <Route exact path='/theatre/update/:id' component={UpdateTheatre} />
           <Route exact path='/theatre/addTheatre' component={AddTheatre} />
           <Route exact path='/theatre' component={ViewTheatre} />
+          <Route exact path='/screen' component={ViewScreen} />
+          <Route exact path='/screen/detail/:id' component={DetailScreen} />
+          <Route exact path='/screen/update/:id' component={UpdateScreen} />
+          <Route exact path='/screen/addScreen' component={AddScreen} />
           <Route exact path='/' component={Body} />
         </Switch>
       </div>

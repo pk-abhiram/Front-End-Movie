@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
-import RemoveIcon from '@material-ui/icons/Remove';
-import AddIcon from '@material-ui/icons/Add';
-import { v4 as uuidv4 } from 'uuid';
-import IconButton from '@material-ui/core/IconButton';
-
+import { addScreen, fetchScreens } from 'Home/components/Actions/ScreenActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import hist from '../Theatre/hist';
 import { fetchTheatre } from '../Actions/TheatreActions';
@@ -32,14 +27,13 @@ const useStyles = makeStyles((theme) => ({
 function AddScreen() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [theatreId, setTheatreId] = useState(0);
+
   const [screenName, setScreenName] = useState('');
   const [rows, setRows] = useState(0);
   const [columns, setColumns] = useState(0);
   const [theatreArr, setTheatreArr] = React.useState([]);
-  const fetchTheatre = useSelector((state) => state.screen.screen);
-  const theatres = useSelector((state) => state.theatre.theatres);
-  const theatreIdRef = React.useRef();
+  const fetchTheatres = useSelector((state) => state.theatre.theatres);
+  const fetchScreen = useSelector((state) => state.screen.screen);
   const screenNameRef = React.useRef();
   const rowsRef = React.useRef();
   const columnsRef = React.useRef();
@@ -48,10 +42,6 @@ function AddScreen() {
     e.preventDefault();
 
     try {
-      if (theatreId === 0) {
-        theatreIdRef.current.focus();
-        throw new Error('Fill Theatre ID');
-      }
       if (screenName === '') {
         screenNameRef.current.focus();
         throw new Error('Fill Screen Name');
@@ -60,17 +50,18 @@ function AddScreen() {
         rowsRef.current.focus();
         throw new Error('Fill rows ');
       }
-      if (columns === '') {
+      if (columns === 0) {
         columnsRef.current.focus();
         throw new Error('Fill columns ');
       }
 
-      const theatre = {
-        theatreId: theatreId,
+      const screen = {
+        theatreId: theatreArr,
         screenName: screenName,
         rows: rows,
         columns: columns,
       };
+      console.log(screen);
       dispatch(addScreen(screen));
       detailRedirect();
     } catch (Exception) {
@@ -79,39 +70,16 @@ function AddScreen() {
   };
 
   const detailRedirect = () => {
+    console.log(fetchScreen);
     if (fetchScreen.screenId !== undefined) {
       hist.push('/screen/detail/' + fetchScreen.screenId);
     }
   };
-  const handleChangeInput = (id, event) => {
-    const newInputFields = inputFields.map((i) => {
-      if (id === i.id) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
-    setInputFields(newInputFields);
-  };
 
-  const handleAddFields = () => {
-    setInputFields([
-      ...inputFields,
-      { id: uuidv4(), screenName: '', columns: 1, rows: 1 },
-    ]);
-  };
-
-  const handleRemoveFields = (id) => {
-    const values = [...inputFields];
-    values.splice(
-      values.findIndex((value) => value.id === id),
-      1
-    );
-    setInputFields(values);
-  };
-
-  //Fetch Movie
+  //Fetch Theatres for Drop Down
   useEffect(() => {
-    dispatch(fetchTheatres());
+    dispatch(fetchTheatre());
+    dispatch(fetchScreens());
   }, [dispatch]);
 
   const handleChangeT = (event) => {
@@ -129,144 +97,64 @@ function AddScreen() {
           handleSubmit(e);
         }}
       >
-        <Typography variant='h6'>Theatre Details:</Typography>
+        <Typography variant='h6'>Screen Details:</Typography>
         <TextField
-          label='Theatre Name'
+          label='Screen Name'
           variant='outlined'
           required
           autoFocus={true}
           type='small'
           style={{ width: 155 }}
           onChange={(e) => {
-            setTheatreName(e.target.value);
+            setScreenName(e.target.value);
           }}
-          inputRef={theatreNameRef}
+          inputRef={screenNameRef}
         />
-        <TextField
-          label='Theatre City'
-          variant='outlined'
-          required
-          type='small'
-          style={{ width: 155 }}
-          onChange={(e) => {
-            setTheatreCity(e.target.value);
-          }}
-          inputRef={theatreCityRef}
-          className={classes.screen}
-        />
-        <TextField
-          label='Manager Name'
-          variant='outlined'
-          required
-          type='small'
-          style={{ width: 155 }}
-          inputRef={managerNameRef}
-          onChange={(e) => {
-            setManagerName(e.target.value);
-          }}
-        />
-        <TextField
-          label='Manager Contact'
-          variant='outlined'
-          required
-          type='small'
-          style={{ width: 155 }}
-          inputRef={managerContactRef}
-          onChange={(e) => {
-            setManagerContact(e.target.value);
-          }}
-        />
-        <Typography variant='h6' children='p'>
-          Screens Detail:<p>(Leave Blank if no Screens)</p>
-        </Typography>
-        {inputFields.map((inputField) => (
-          <div key={inputField.id} style={{ width: '100%', padding: 5 }}>
-            <TextField
-              name='screenName'
-              label='screenName'
-              variant='outlined'
-              size='small'
-              type='text'
-              value={inputField.screenName}
-              onChange={(event) => handleChangeInput(inputField.id, event)}
-              style={{ margin: '10px' }}
-            />
-            <TextField
-              name='columns'
-              label='columns'
-              variant='outlined'
-              size='small'
-              type='number'
-              value={inputField.columns}
-              onChange={(event) => {
-                if (event.target.value < 1) {
-                  event.target.value = 1;
-                }
-                handleChangeInput(inputField.id, event);
-              }}
-              className={classes.screen}
-            />
-            <TextField
-              name='rows'
-              label='rows'
-              variant='outlined'
-              size='small'
-              value={inputField.rows}
-              type='number'
-              onChange={(event) => {
-                if (event.target.value < 1) {
-                  event.target.value = 1;
-                }
-                handleChangeInput(inputField.id, event);
-              }}
-              className={classes.screen}
-            />
-            <IconButton
-              disabled={inputFields.length === 1}
-              onClick={() => handleRemoveFields(inputField.id)}
-            >
-              <RemoveIcon />
-            </IconButton>
-            <IconButton onClick={handleAddFields}>
-              <AddIcon />
-            </IconButton>
-          </div>
-        ))}
 
-        <InputLabel id='mutiple-checkbox-label'>Movies:</InputLabel>
+        <TextField
+          name='rows'
+          label='rows'
+          variant='outlined'
+          size='small'
+          type='number'
+          onChange={(e) => {
+            setRows(e.target.value);
+          }}
+          className={classes.screen}
+          inputRef={rowsRef}
+        />
+
+        <TextField
+          name='columns'
+          label='columns'
+          variant='outlined'
+          size='small'
+          type='number'
+          onChange={(e) => {
+            setColumns(e.target.value);
+          }}
+          className={classes.screen}
+          inputRef={columnsRef}
+        />
+
+        <InputLabel id='mutiple-checkbox-label'>Theatre ID:</InputLabel>
         <Select
           labelId='mutiple-checkbox-label'
           id='demo-mutiple-checkbox'
-          multiple
-          value={movieArr}
-          onChange={handleChangeM}
+          value={theatreArr}
+          onChange={handleChangeT}
           input={<Input />}
-          renderValue={(selected) => 'Movies Selected: ' + selected.length}
+          renderValue={(selected) => 'Theatres Selected: ' + selected}
           fullWidth={true}
           variant='outlined'
         >
-          {movies.map((movie) => (
+          {fetchTheatres.map((theatre) => (
             <MenuItem
-              key={movie.movieId}
-              value={movie}
+              key={theatre.theatreId}
+              value={theatre.theatreId}
               style={{ overflowX: 'auto' }}
             >
-              <Checkbox checked={movieArr.indexOf(movie) > -1} />
-              <ListItemText
-                primary={
-                  movie.movieId +
-                  'Name:' +
-                  movie.movieName +
-                  ' ,Language: ' +
-                  movie.language +
-                  ' ,Genre: ' +
-                  movie.movieGenre +
-                  ' ,Hours: ' +
-                  movie.movieHours +
-                  ' ,Desc: ' +
-                  movie.description
-                }
-              />
+              <ListItemText primary={theatre.theatreId} />
             </MenuItem>
           ))}
         </Select>

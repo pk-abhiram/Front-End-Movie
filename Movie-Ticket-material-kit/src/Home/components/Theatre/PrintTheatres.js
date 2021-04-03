@@ -99,7 +99,7 @@ export const CustomLocaleTextGrid = () => {
             color='primary'
             size='small'
             style={{ marginLeft: 16 }}
-            to={'/theatre/detail/' + params.value}
+            to={'/admin/theatre/detail/' + params.value}
           >
             View
           </Link>
@@ -111,7 +111,7 @@ export const CustomLocaleTextGrid = () => {
       headerName: 'DELETE',
       width: 130,
       renderCell: (params: GridCellParams) => (
-        <Link to={'/theatre'} style={{ marginLeft: 16, width: '1rem' }}>
+        <Link to={'/admin/theatre'} style={{ marginLeft: 16, width: '1rem' }}>
           <Button
             onClick={() => enterPassword(params.value)}
             variant='contained'
@@ -148,7 +148,7 @@ export const CustomLocaleTextGrid = () => {
         setSopenState(false);
       }}
     >
-      <Link to='/theatre/addTheatre'>
+      <Link to='/admin/theatre/addTheatre'>
         <Button
           variant='contained'
           color='primary'

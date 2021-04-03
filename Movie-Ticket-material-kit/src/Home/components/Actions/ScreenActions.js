@@ -81,3 +81,28 @@ export const updateScreen = (screen) => async (dispatch, getState) => {
     dispatch({ type: 'ERROR_SCREEN', error: error });
   }
 };
+
+export const addScreen = (screen) => async (dispatch, getState) => {
+  try {
+    const response = await Axios({
+      method: 'post',
+      url: 'http://localhost:8082/screen/',
+      headers: {},
+      data: {
+        theatreId: screen.theatreId,
+        screenName: screen.screenName,
+        rows: screen.rows,
+        columns: screen.columns,
+      },
+    }).catch(function (error) {
+      throw new Error(error.response.data.message);
+    });
+
+    dispatch({
+      type: 'ADD_SCREEN',
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({ type: 'ERROR_SCREEN', error: error });
+  }
+};

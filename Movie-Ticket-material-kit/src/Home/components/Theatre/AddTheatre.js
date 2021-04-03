@@ -82,7 +82,6 @@ function AddTheatre() {
         screens: screens,
         movieArr: movieArr,
       };
-
       dispatch(addTheatre(theatre));
       detailRedirect();
     } catch (Exception) {

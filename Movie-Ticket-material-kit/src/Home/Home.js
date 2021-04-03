@@ -41,7 +41,7 @@ const Cards = (prop) => {
   });
   const classes = useStyles();
   return (
-    <Link to={'/' + name}>
+    <Link to={'/admin/' + name}>
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={imageUrl} />

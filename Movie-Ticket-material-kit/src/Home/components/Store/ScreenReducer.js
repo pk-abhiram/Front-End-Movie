@@ -45,6 +45,14 @@ const ScreenReducer = (state = initStat, action) => {
         error: null,
       };
 
+    case 'ADD_SCREEN':
+      return {
+        ...state,
+        screen: action.payload,
+        loading: false,
+        error: null,
+      };
+
     case 'ERROR_SCREEN':
       return {
         ...state,

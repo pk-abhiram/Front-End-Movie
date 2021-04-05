@@ -1,41 +1,35 @@
 const initStat = {
-  users: [],
+  admins: [],
   loading: false,
   error: null,
-  user: null,
+  admin: {},
 };
 
-const UserReducer = (state = initStat, action) => {
+const ScreenReducer = (state = initStat, action) => {
   switch (action.type) {
-    case 'LOADING_USER':
+    case 'LOADING_ADMIN':
       return {
         ...state,
         loading: true,
         error: '',
       };
+    case 'FETCH_ADMIN':
+      return {
+        ...state,
+        admin: action.payload,
+        loading: false,
+        error: null,
+      };
 
-    case 'ADD_USER':
+    case 'ADD_ADMIN':
       return {
         ...state,
-        user: action.payload,
+        admin: action.payload,
         loading: false,
         error: null,
       };
-    case 'CLEAR_USER':
-      return {
-        ...state,
-        user: {},
-        loading: false,
-        error: null,
-      };
-    case 'FETCH_USER':
-      return {
-        ...state,
-        user: action.payload,
-        loading: false,
-        error: null,
-      };
-    case 'ERROR_USER':
+
+    case 'ERROR_ADMIN':
       return {
         ...state,
         loading: false,
@@ -46,4 +40,4 @@ const UserReducer = (state = initStat, action) => {
       return state;
   }
 };
-export default UserReducer;
+export default ScreenReducer;

@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-export const addUser = (user) => async (dispatch, getState) => {
+export const addCustomer = (user) => async (dispatch, getState) => {
   try {
     console.log(user);
     const response = await Axios({
@@ -32,22 +32,19 @@ export const clearUser = () => async (dispatch, getState) => {
   });
 };
 
-export const fetchUser = (user, password) => async (dispatch, getState) => {
+export const fetchUser = (email) => async (dispatch, getState) => {
   try {
     const response = await Axios({
       method: 'post',
       url: 'http://localhost:8082/user/finduser',
       headers: {},
       data: {
-        email: user.email,
-        password: user.password,
+        email: email,
       },
     }).catch(function (error) {
       throw new Error(error.response.data.message);
     });
-    if (response.data.password !== password) {
-      throw new Error("Password Doesn't Match");
-    }
+
     dispatch({
       type: 'FETCH_USER',
       payload: response.data,

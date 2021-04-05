@@ -16,6 +16,7 @@ import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import hist from './hist';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -91,7 +92,7 @@ function AddTheatre() {
 
   const detailRedirect = () => {
     if (fetchTheatre.theatreId !== undefined) {
-      hist.push('/theatre/detail/' + fetchTheatre.theatreId);
+      hist.push('/admin/theatre/detail/' + fetchTheatre.theatreId);
     }
   };
   const handleChangeInput = (id, event) => {

@@ -37,10 +37,11 @@ function AddScreen() {
   const screenNameRef = React.useRef();
   const rowsRef = React.useRef();
   const columnsRef = React.useRef();
+  const selectRef = React.useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(selectRef.current.innerText);
     try {
       if (screenName === '') {
         screenNameRef.current.focus();
@@ -54,6 +55,11 @@ function AddScreen() {
         columnsRef.current.focus();
         throw new Error('Fill columns ');
       }
+      if (selectRef.current.innerText === '') {
+        console.log('error');
+        selectRef.current.focus();
+        throw new Error('Select Theatre ');
+      }
 
       const screen = {
         theatreId: theatreArr,
@@ -61,7 +67,7 @@ function AddScreen() {
         rows: rows,
         columns: columns,
       };
-      console.log(screen);
+
       dispatch(addScreen(screen));
       detailRedirect();
     } catch (Exception) {
@@ -141,12 +147,14 @@ function AddScreen() {
         <Select
           labelId='mutiple-checkbox-label'
           id='demo-mutiple-checkbox'
-          value={theatreArr}
+          value={theatreArr[0]}
           onChange={handleChangeT}
           input={<Input />}
-          renderValue={(selected) => 'Theatres Selected: ' + selected}
+          renderValue={(selected) => selected}
           fullWidth={true}
           variant='outlined'
+          innerRef={selectRef}
+          defaultValue='1'
         >
           {fetchTheatres.map((theatre) => (
             <MenuItem

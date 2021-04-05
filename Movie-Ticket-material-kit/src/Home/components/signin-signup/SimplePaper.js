@@ -6,17 +6,16 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
-import Welcome from './Welcome';
+import Register from './Register';
 
 const useStyles = makeStyles({
   root: {
     // align: 'center',
     alignItems: 'center',
     maxWidth: 500,
-    height: 600,
+
     // backgroundColor:'white',
-    background: 'transparent',
-    opacity: 0.9,
+    opacity: 1,
   },
   media: {
     alignSelf: 'center',
@@ -33,8 +32,7 @@ export default function SimplePaper() {
     <div className='home'>
       <Card className={classes.root}>
         <CardContent>
-          <Welcome />
-
+          <Register />
           <CardActions className={classes.media}></CardActions>
         </CardContent>
       </Card>

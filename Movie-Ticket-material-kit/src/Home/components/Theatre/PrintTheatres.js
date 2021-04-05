@@ -109,7 +109,7 @@ export const CustomLocaleTextGrid = () => {
     {
       field: 'delete',
       headerName: 'DELETE',
-      width: 130,
+      width: 180,
       renderCell: (params: GridCellParams) => (
         <Link to={'/admin/theatre'} style={{ marginLeft: 16, width: '1rem' }}>
           <Button
@@ -142,7 +142,7 @@ export const CustomLocaleTextGrid = () => {
 
   return (
     <div
-      style={{ height: 600 }}
+      style={{ height: 600, marginBottom: '50px' }}
       onMouseOver={(e) => {
         sopenState && handleClickS();
         setSopenState(false);

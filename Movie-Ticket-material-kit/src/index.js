@@ -21,6 +21,7 @@ import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRouteCustomer from './PrivateRouteCustomer';
 import Dashboard from './Dashboard';
 import adminReducer from './Home/components/Store/AdminReducer';
+import bookingReducer from './Home/components/Store/BookingReducer';
 import ForgotPassword from './Home/components/signin-signup/ForgotPassword';
 const rootReducer = combineReducers({
   theatre: theatreReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   screen: screenReducer,
   user: userReducer,
   admin: adminReducer,
+  booking: bookingReducer,
 });
 
 // pages for this product

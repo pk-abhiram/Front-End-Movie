@@ -18,6 +18,9 @@ import AddScreen from '../Screen/AddScreen';
 import hist from 'Home/components/Theatre/hist.js';
 import AddAdmin from './AddAdmin';
 import Footer from '../Footer/Footer';
+import ViewMovie from '../Movie/ViewMovie';
+import AddMovie from '../Movie/AddMovie';
+import UpdateMovie from '../Movie/UpdateMovie';
 
 const useStyles = makeStyles(styles);
 
@@ -68,6 +71,9 @@ function Admin() {
               component={UpdateScreen}
             />
             <Route exact path='/admin/screen/addScreen' component={AddScreen} />
+            <Route exact path='/admin/movies/addMovie' component={AddMovie} />
+            <Route exact path='/admin/movies' component={ViewMovie} />
+            <Route exact path='/admin/movies/:id' component={UpdateMovie} />
             <Route exact path='/admin/addAdmin' component={AddAdmin} />
             <Route exact path='/admin' component={AdminProfile} />
           </Switch>

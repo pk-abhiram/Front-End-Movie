@@ -48,8 +48,10 @@ export default function Parallax(props) {
       className={parallaxClasses}
       style={{
         ...style,
+        width: '100%',
         backgroundImage: 'url(' + image + ')',
         transform: transform,
+        margin: 0,
       }}
     >
       {children}

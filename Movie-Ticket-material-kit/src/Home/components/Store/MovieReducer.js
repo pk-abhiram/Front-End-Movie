@@ -19,7 +19,31 @@ const MovieReducer = (state = initStat, action) => {
         loading: false,
         error: null,
       };
+
+    case 'FETCH_MOVIE':
+      return {
+        ...state,
+        movie: action.payload,
+        loading: false,
+        error: null,
+      };
     case 'DETAIL_MOVIE':
+      return {
+        ...state,
+        movie: action.payload,
+        loading: false,
+        error: null,
+      };
+
+    case 'ADD_MOVIE':
+      return {
+        ...state,
+        movie: action.payload,
+        loading: false,
+        error: null,
+      };
+
+    case 'UPDATE_MOVIE':
       return {
         ...state,
         movie: action.payload,

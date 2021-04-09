@@ -3,6 +3,7 @@ const initStat = {
   loading: false,
   error: null,
   user: null,
+  customer: {},
 };
 
 const UserReducer = (state = initStat, action) => {
@@ -32,6 +33,13 @@ const UserReducer = (state = initStat, action) => {
       return {
         ...state,
         user: action.payload,
+        loading: false,
+        error: null,
+      };
+    case 'FETCH_CUSTOMER':
+      return {
+        ...state,
+        customer: action.payload,
         loading: false,
         error: null,
       };

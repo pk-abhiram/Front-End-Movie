@@ -3,19 +3,15 @@ import { useParams } from 'react-router';
 import { fetchTheatresInCity } from '../Actions/BookingActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { DataGrid, GridToolbar } from '@material-ui/data-grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import { DataGrid } from '@material-ui/data-grid';
+
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
+import MovieCard1 from './Cards/MovieCard';
 const useStyles = makeStyles({
   grid: {
-    width: '22%',
+    width: '325px',
     height: 'auto',
     margin: '10px',
     padding: '10px',
@@ -64,19 +60,19 @@ function Explore() {
 
   return (
     <div>
+      <div style={{ borderBottom: '5px solid' }}>{MovieCard1(theatres)}</div>
       <div>
-        <div>Some Recommended Movies</div>
+        <Typography
+          variant='h4'
+          style={{ textTransform: 'none' }}
+          gutterBottom={true}
+        >
+          Some Theatres in <strong>{city.cityName}</strong>
+        </Typography>
         <div
           className={classes.grid}
           style={{ margin: '0 auto', padding: '10px', height: '100%' }}
         >
-          <Typography
-            variant='subtitle1'
-            style={{ textTransform: 'none' }}
-            gutterBottom={true}
-          >
-            Some Theatres in <h6>{city.cityName}</h6>
-          </Typography>
           {theatres && (
             <DataGrid
               density='compact'

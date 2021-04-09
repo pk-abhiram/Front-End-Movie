@@ -21,6 +21,7 @@ import PrivateRouteAdmin from './PrivateRouteAdmin';
 import PrivateRouteCustomer from './PrivateRouteCustomer';
 import Dashboard from './Dashboard';
 import adminReducer from './Home/components/Store/AdminReducer';
+import showReducer from './Home/components/Store/ShowReducer';
 import bookingReducer from './Home/components/Store/BookingReducer';
 import ForgotPassword from './Home/components/signin-signup/ForgotPassword';
 const rootReducer = combineReducers({
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   admin: adminReducer,
   booking: bookingReducer,
+  show: showReducer,
 });
 
 // pages for this product

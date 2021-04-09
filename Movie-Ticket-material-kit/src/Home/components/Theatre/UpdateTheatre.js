@@ -9,10 +9,26 @@ import { updateTheatre } from '../Actions/TheatreActions';
 import hist from './hist';
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin: '15px',
+    border: '1px solid',
+    borderRadius: '20px',
+
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
     },
+  },
+  inputFields: {
+    width: '50%',
+    display: 'block',
+    margin: '20px',
+    left: '20%',
+  },
+  submit: {
+    left: '25%',
+  },
+  container: {
+    margin: '20px',
+    padding: '10px',
   },
 }));
 
@@ -41,7 +57,7 @@ function UpdateTheatre() {
   const getTheatre = useSelector((state) => state.theatre.theatre);
   const detailRedirect = () => {
     if (getTheatre.theatreId !== undefined) {
-      hist.push('/theatre/detail/' + getTheatre.theatreId);
+      hist.push('/admin/theatre/detail/' + getTheatre.theatreId);
     }
   };
   useEffect(() => {
@@ -51,7 +67,7 @@ function UpdateTheatre() {
   const theatre = useSelector((state) => state.theatre.theatre);
 
   return (
-    <div>
+    <div className={classes.container}>
       <h3>Fill Details:[Theatre ID:{theatre.theatreId}]</h3>
       <form
         className={classes.root}
@@ -68,7 +84,7 @@ function UpdateTheatre() {
           required
           autoFocus={true}
           type='medium'
-          style={{ width: 155 }}
+          className={classes.inputFields}
           focused={true}
           onChange={(e) => {
             setTheatreName(e.target.value);
@@ -85,7 +101,7 @@ function UpdateTheatre() {
           variant='outlined'
           required
           type='small'
-          style={{ width: 155 }}
+          className={classes.inputFields}
           focused={true}
           onMouseOver={(e) => {
             if (!e.target.value) {
@@ -102,7 +118,7 @@ function UpdateTheatre() {
           variant='outlined'
           required
           type='small'
-          style={{ width: 155 }}
+          className={classes.inputFields}
           onMouseOver={(e) => {
             if (!e.target.value) {
               e.target.value = theatre.managerName;
@@ -120,7 +136,7 @@ function UpdateTheatre() {
           required
           type='small'
           focused={true}
-          style={{ width: 155 }}
+          className={classes.inputFields}
           onMouseOver={(e) => {
             if (!e.target.value) {
               e.target.value = theatre.managerContact;
@@ -132,8 +148,13 @@ function UpdateTheatre() {
           }}
         />
 
-        <Button type='Submit' variant='contained' color='primary'>
-          Submit
+        <Button
+          type='Submit'
+          variant='contained'
+          color='primary'
+          className={classes.submit}
+        >
+          Update
         </Button>
       </form>
     </div>

@@ -10,7 +10,6 @@ import { fetchMovie } from '../Actions/MovieActions';
 import { addTheatre } from '../Actions/TheatreActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -19,6 +18,9 @@ import hist from './hist';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    border: '1px solid',
+    margin: '10px',
+    borderRadius: '20px',
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
@@ -26,6 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
   screen: {
     margin: theme.spacing(1),
+  },
+  main: {
+    margin: '10px',
+
+    padding: '20px',
+  },
+  submit: {
+    margin: '10px',
+
+    left: '50%',
+    msTransform: 'translateX(-50%)',
+    transform: 'translateX(-50%)',
   },
 }));
 
@@ -132,7 +146,7 @@ function AddTheatre() {
   };
 
   return (
-    <div>
+    <div className={classes.main}>
       <h3>Fill Details:</h3>
       <form
         className={classes.root}
@@ -193,7 +207,7 @@ function AddTheatre() {
           Screens Detail:<p>(Leave Blank if no Screens)</p>
         </Typography>
         {inputFields.map((inputField) => (
-          <div key={inputField.id} style={{ width: '100%', padding: 5 }}>
+          <div key={inputField.id} style={{ width: '100%' }}>
             <TextField
               name='screenName'
               label='screenName'
@@ -245,8 +259,10 @@ function AddTheatre() {
             </IconButton>
           </div>
         ))}
+        <Typography variant='h6' children='p'>
+          Add Movies:<p>(Leave Blank if no Movies)</p>
+        </Typography>
 
-        <InputLabel id='mutiple-checkbox-label'>Movies:</InputLabel>
         <Select
           labelId='mutiple-checkbox-label'
           id='demo-mutiple-checkbox'
@@ -284,8 +300,13 @@ function AddTheatre() {
           ))}
         </Select>
         <br />
-        <Button type='Submit' variant='contained' color='primary'>
-          Submit
+        <Button
+          type='Submit'
+          variant='contained'
+          color='primary'
+          className={classes.submit}
+        >
+          Add Theatre
         </Button>
       </form>
     </div>

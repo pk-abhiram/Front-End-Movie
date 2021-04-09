@@ -4,6 +4,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import { addCustomer } from '../Actions/UserActions';
 import { useDispatch } from 'react-redux';
+import './StylesSheet.css';
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -21,6 +22,16 @@ export default function Signup() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (
+      !(
+        /[A-Z]/.test(passwordRef.current.value) &&
+        /[0-9]/.test(passwordRef.current.value) &&
+        /^[@#][A-Za-z0-9]{7,13}$/.test(passwordRef.current.value)
+      )
+    ) {
+      return setError('Passwords does not follow the pattern');
+    }
+
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError('Passwords do not match');
     }
@@ -35,11 +46,7 @@ export default function Signup() {
       };
       setError('');
       setLoading(true);
-      await signup(
-        emailRef.current.value,
-        passwordRef.current.value,
-        'CUSTOMER'
-      );
+      await signup(emailRef.current.value, passwordRef.current.value, 'ROOT');
       await dispatch(addCustomer(customer));
 
       history.push('/');
@@ -49,21 +56,27 @@ export default function Signup() {
 
     setLoading(false);
   }
-
+  // id="cardform"
   return (
-    <>
-      <Card bg='dark' text='light'>
+    <div id='home'>
+      <Card bg='dark' text='light' id='card'>
         <Card.Body>
-          <h2 className='text-center mb-4'>Sign Up</h2>
+          <h3 className='text-center mb-4'>
+            Join to wander in a world of imagination!
+          </h3>
           {error && <Alert variant='danger'>{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id='name'>
               <Form.Label>Name</Form.Label>
               <Form.Control type='text' ref={nameRef} required />
             </Form.Group>
-            <Form.Group id='email'>
+            <Form.Group id='email' controlId='formPlaintextEmail'>
               <Form.Label>Email</Form.Label>
               <Form.Control type='email' ref={emailRef} required />
+              <Form.Text muted>
+                {' '}
+                Your email id should be of the format: example@mailid.com
+              </Form.Text>
             </Form.Group>
             <Form.Group id='address'>
               <Form.Label>Address</Form.Label>
@@ -71,25 +84,45 @@ export default function Signup() {
             </Form.Group>
             <Form.Group id='mobile'>
               <Form.Label>Mobile</Form.Label>
-              <Form.Control type='text' ref={mobileRef} required />
+              <Form.Control
+                type='text'
+                ref={mobileRef}
+                pattern='^\d{3}-\d{3}-\d{4}$'
+                required
+              />
+              <Form.Text muted>
+                Your mobile no should be of the format: xxx-xxx-xxxx
+              </Form.Text>
             </Form.Group>
-            <Form.Group id='password'>
+            <Form.Group
+              id='password'
+              pattern='^([@#](?=[^aeiou]{7,13}$)(?=[[:alnum:]]{7,13}$)(?=.[A-Z]{1,}.$).+)$)'
+              required
+            >
               <Form.Label>Password</Form.Label>
               <Form.Control type='password' ref={passwordRef} required />
+              <Form.Text muted>
+                Your password should:Start with a special character,8 to 13
+                characters,1 uppercase letter,1 number
+              </Form.Text>
             </Form.Group>
-            <Form.Group id='password-confirm'>
-              <Form.Label>Password Confirmation</Form.Label>
+            <Form.Group
+              id='password-confirm'
+              pattern='^([@#](?=[^aeiou]{7,13}$)(?=[[:alnum:]]{7,13}$)(?=.[A-Z]{1,}.$).+)$'
+              required
+            >
+              <Form.Label>Confirm password</Form.Label>
               <Form.Control type='password' ref={passwordConfirmRef} required />
             </Form.Group>
             <Button disabled={loading} className='w-100' type='submit'>
-              Sign Up
+              Let's go
             </Button>
           </Form>
+          <div className='w-100 text-center mt-2'>
+            Already have an account? <Link to='/'>Log In</Link>
+          </div>
         </Card.Body>
       </Card>
-      <div className='w-100 text-center mt-2'>
-        Already have an account? <Link to='/'>Log In</Link>
-      </div>
-    </>
+    </div>
   );
 }

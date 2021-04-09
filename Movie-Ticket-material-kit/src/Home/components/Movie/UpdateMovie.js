@@ -25,6 +25,8 @@ function UpdateMovie() {
   const [movieHours, setMovieHours] = useState('');
   const [movieLanguage, setMovieLanguage] = useState('');
   const [movieDescription, setMovieDescription] = useState('');
+  const [movieUrl, setMovieUrl] = useState('');
+
   const getMovie = useSelector((state) => state.movie.movie);
   useEffect(() => {
     dispatch(fetchMovieById(id.id));
@@ -36,7 +38,7 @@ function UpdateMovie() {
 
   const detailRedirect = () => {
     if (getMovie.movieId !== undefined) {
-      hist.push('/movie');
+      hist.push('/admin/movies');
     }
   };
 
@@ -50,6 +52,7 @@ function UpdateMovie() {
       movieHours: movieHours,
       movieLanguage: movieLanguage,
       movieDescription: movieDescription,
+      movieUrl: movieUrl,
     };
 
     dispatch(updateMovie(movie));
@@ -153,6 +156,24 @@ function UpdateMovie() {
           }}
           onChange={(e) => {
             setMovieDescription(e.target.value);
+          }}
+        />
+
+        <TextField
+          label='Movie Url'
+          variant='outlined'
+          required
+          type='small'
+          focused={true}
+          style={{ width: 155 }}
+          onMouseOver={(e) => {
+            if (!e.target.value) {
+              e.target.value = getMovie.imageUrl;
+              setMovieUrl(e.target.value);
+            }
+          }}
+          onChange={(e) => {
+            setMovieUrl(e.target.value);
           }}
         />
 

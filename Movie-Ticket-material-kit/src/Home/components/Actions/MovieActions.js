@@ -39,6 +39,7 @@ export const addMovie = (m) => async (dispatch, getState) => {
         movieHours: m.movieHours,
         language: m.movieLanguage,
         description: m.movieDescription,
+        movieUrl: m.movieUrl,
       },
     }).catch(function (error) {
       throw new Error(error.response.data.message);
@@ -84,6 +85,7 @@ export const updateMovie = (m) => async (dispatch, getState) => {
         movieHours: m.movieHours,
         language: m.movieLanguage,
         description: m.movieDescription,
+        movieUrl: m.movieUrl,
       },
     }).catch(function (error) {
       throw new Error(error.response.data.message);

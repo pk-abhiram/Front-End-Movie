@@ -42,23 +42,44 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <CustomDropdown
-          noLiPadding
-          buttonText='Components'
-          buttonProps={{
-            className: classes.navLink,
-            color: 'transparent',
-          }}
-          buttonIcon={Apps}
-          dropdownList={[
-            <Link to='/admin/theatre' className={classes.dropdownLink}>
+        <Link to='/admin/theatre'>
+          <Tooltip
+            title='Theatre Management'
+            placement={window.innerWidth > 959 ? 'top' : 'left'}
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <Button color='transparent' className={classes.navLink}>
               Theatre
-            </Link>,
-            <Link to='/admin/screen' className={classes.dropdownLink}>
+            </Button>
+          </Tooltip>
+        </Link>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Link to='/admin/screen'>
+          <Tooltip
+            title='Screen Management'
+            placement={window.innerWidth > 959 ? 'top' : 'left'}
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <Button color='transparent' className={classes.navLink}>
               Screen
-            </Link>,
-          ]}
-        />
+            </Button>
+          </Tooltip>
+        </Link>
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+        <Link to='/admin/movies'>
+          <Tooltip
+            title='Movie Management'
+            placement={window.innerWidth > 959 ? 'top' : 'left'}
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <Button color='transparent' className={classes.navLink}>
+              Movie
+            </Button>
+          </Tooltip>
+        </Link>
       </ListItem>
 
       <ListItem className={classes.listItem}>

@@ -70,7 +70,7 @@ function DetailTheatre() {
     <Container>
       <center>
         <h2>INFO</h2>
-        <Link to={'/theatre/update/' + id.id} style={{ float: 'right' }}>
+        <Link to={'/admin/theatre/update/' + id.id} style={{ float: 'right' }}>
           <Button variant='contained' size='medium' color='primary'>
             Edit
           </Button>

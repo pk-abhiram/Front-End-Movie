@@ -1,43 +1,34 @@
 const initStat = {
-  location: [],
+  shows: [],
   loading: false,
   error: null,
-  theatres: [],
   show: {},
 };
-const BookingReducer = (state = initStat, action) => {
+const MovieReducer = (state = initStat, action) => {
   switch (action.type) {
-    case 'LOADING_BOOKING':
+    case 'LOADING_SHOW':
       return {
         ...state,
         loading: true,
         error: '',
       };
+    case 'FETCH_SHOWS':
+      return {
+        ...state,
+        shows: action.payload,
+        loading: false,
+        error: null,
+      };
 
-    case 'FETCH_BOOKING':
+    case 'FETCH_SHOWID':
       return {
         ...state,
         loading: false,
-        location: action.payload,
+        show: action.payload,
         error: '',
       };
 
-    case 'FETCH_THEATRES':
-      return {
-        ...state,
-        loading: false,
-        theatres: action.payload,
-        error: '',
-      };
-
-    case 'ADD_BOOKING':
-      return {
-        ...state,
-        loading: false,
-        customer: action.payload,
-        error: '',
-      };
-    case 'ERROR_BOOKING':
+    case 'ERROR_SHOW':
       return {
         ...state,
         loading: false,
@@ -48,4 +39,4 @@ const BookingReducer = (state = initStat, action) => {
       return state;
   }
 };
-export default BookingReducer;
+export default MovieReducer;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { DataGrid, GridToolbar } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,28 +12,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
 import { fetchMovie, deleteMovieByID } from '../Actions/MovieActions';
 
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
@@ -79,14 +63,6 @@ export const CustomLocaleTextGrid = () => {
     setOpen(false);
   };
 
-  const classes = useStyles();
-
-  const [threatreId, setTheatreId] = React.useState('');
-
-  const handleChange = (event) => {
-    setTheatreId(event.target.value);
-  };
-
   const [password, setPassword] = React.useState('');
 
   const options = movies.map(function (row) {
@@ -97,6 +73,7 @@ export const CustomLocaleTextGrid = () => {
       Hours: row.movieHours,
       Language: row.language,
       Description: row.description,
+      movieUrl: row.imageUrl,
       link: row.movieId,
       delete: row.movieId,
     };
@@ -133,6 +110,13 @@ export const CustomLocaleTextGrid = () => {
     },
 
     {
+      field: 'movieUrl',
+      headerName: 'Movie Url',
+      width: 450,
+      height: 200,
+    },
+
+    {
       field: 'link',
       headerName: 'More Details',
       width: 150,
@@ -143,7 +127,7 @@ export const CustomLocaleTextGrid = () => {
             color='primary'
             size='small'
             style={{ marginLeft: 16 }}
-            to={'/movie/' + params.value}
+            to={'/admin/movies/' + params.value}
           >
             View
           </Link>
@@ -156,7 +140,7 @@ export const CustomLocaleTextGrid = () => {
       headerName: 'DELETE',
       width: 130,
       renderCell: (params: GridCellParams) => (
-        <Link to={'/movie'} style={{ marginLeft: 16, width: '1rem' }}>
+        <Link to={'/admin/movies'} style={{ marginLeft: 16, width: '1rem' }}>
           <Button
             onClick={() => enterPassword(params.value)}
             variant='contained'
@@ -193,7 +177,7 @@ export const CustomLocaleTextGrid = () => {
         setSopenState(false);
       }}
     >
-      <Link to='/movie/addMovie'>
+      <Link to='/admin/movies/addMovie'>
         <Button
           variant='contained'
           color='primary'

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Form, Card, Alert } from 'react-bootstrap';
+import { Button } from '@material-ui/core';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchUser } from '../Actions/UserActions';
@@ -47,7 +48,13 @@ export default function Login() {
               </Form.Label>
               <Form.Control type='password' ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className='w-100' type='submit'>
+            <Button
+              disabled={loading}
+              fullWidth={true}
+              color='primary'
+              variant='contained'
+              type='submit'
+            >
               Log In
             </Button>
           </Form>

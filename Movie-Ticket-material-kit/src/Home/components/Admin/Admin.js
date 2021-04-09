@@ -28,7 +28,7 @@ function Admin() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div style={{ background: '#000' }}>
       <Header
         brand='ADMIN'
         rightLinks={<HeaderLinks />}

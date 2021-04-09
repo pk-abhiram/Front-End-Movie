@@ -51,11 +51,8 @@ export default function HeaderLinks(props) {
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to='/admin/theatre' className={classes.dropdownLink}>
-              Theatre
-            </Link>,
-            <Link to='/admin/screen' className={classes.dropdownLink}>
-              Screen
+            <Link to='/customer/tickets/' className={classes.dropdownLink}>
+              Tickets
             </Link>,
           ]}
         />
@@ -79,8 +76,12 @@ export default function HeaderLinks(props) {
           }}
           buttonIcon={Apps}
           dropdownList={[
+            <Link to={'/customer/detail/'} className={classes.dropdownLink}>
+              Profile Details
+            </Link>,
+
             <Link
-              to='/admin/theatre'
+              to='/customer/'
               className={classes.dropdownLink}
               onClick={handleLogout}
             >

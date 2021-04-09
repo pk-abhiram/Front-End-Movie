@@ -70,7 +70,7 @@ function DetailScreen() {
     <Container>
       <center>
         <h2>INFO</h2>
-        <Link to={'/screen/update/' + id.id} style={{ float: 'right' }}>
+        <Link to={'/admin/screen/update/' + id.id} style={{ float: 'right' }}>
           <Button variant='contained' size='medium' color='primary'>
             Edit
           </Button>

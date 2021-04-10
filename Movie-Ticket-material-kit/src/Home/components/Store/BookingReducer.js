@@ -37,6 +37,7 @@ const BookingReducer = (state = initStat, action) => {
         customer: action.payload,
         error: '',
       };
+
     case 'ERROR_BOOKING':
       return {
         ...state,

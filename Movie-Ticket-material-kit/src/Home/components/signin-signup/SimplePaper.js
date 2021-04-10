@@ -13,7 +13,11 @@ const useStyles = makeStyles({
     // align: 'center',
     alignItems: 'center',
     maxWidth: 500,
+    width: '50%',
 
+    position: 'absolute',
+    top: '0%',
+    left: '35%',
     // backgroundColor:'white',
     opacity: 1,
   },

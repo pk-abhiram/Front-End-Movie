@@ -43,6 +43,20 @@ const UserReducer = (state = initStat, action) => {
         loading: false,
         error: null,
       };
+    case 'CANCEL_BOOKING':
+      return {
+        ...state,
+        customer: action.payload,
+        loading: false,
+        error: null,
+      };
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        customer: action.payload,
+        loading: false,
+        error: null,
+      };
     case 'ERROR_USER':
       return {
         ...state,

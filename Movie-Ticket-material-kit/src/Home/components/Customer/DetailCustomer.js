@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { fetchCustomerByEmail } from '../Actions/UserActions';
 import { useDispatch, useSelector } from 'react-redux';
+import hist from '../Theatre/hist';
 
 function DetailCustomer() {
   var user = useAuth().currentUser;
@@ -66,6 +67,16 @@ function DetailCustomer() {
               style={{ marginBottom: '10px' }}
             />
             {error && error}
+            <Button
+              variant='contained'
+              onClick={() => {
+                hist.push('/customer/detail/edit/');
+              }}
+              color='primary'
+              style={{ margin: '10px' }}
+            >
+              Edit
+            </Button>
             <Button
               variant='contained'
               onClick={deleteU}

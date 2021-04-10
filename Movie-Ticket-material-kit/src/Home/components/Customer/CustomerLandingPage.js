@@ -13,7 +13,8 @@ import Footer from '../Footer/Footer';
 import BookShow from './Book/BookShow';
 import DetailCustomer from './DetailCustomer';
 import CustomerTickets from './CustomerTickets.js';
-
+import ExploreTheatre from './ExploreTheatre';
+import UpdateDetails from './UpdateDetails';
 const useStyles = makeStyles(styles);
 
 function CustomerLandingPage() {
@@ -58,6 +59,16 @@ function CustomerLandingPage() {
                 exact
                 path='/customer/detail/'
                 component={DetailCustomer}
+              />
+              <Route
+                exact
+                path='/customer/theatre/detail/:theatreId'
+                component={ExploreTheatre}
+              />
+              <Route
+                exact
+                path='/customer/detail/edit'
+                component={UpdateDetails}
               />
               <Route exact path='/customer' component={Location} />
             </Switch>

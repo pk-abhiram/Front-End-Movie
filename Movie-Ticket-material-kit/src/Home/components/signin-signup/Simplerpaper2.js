@@ -11,7 +11,11 @@ const useStyles = makeStyles({
     // align: 'center',
     alignItems: 'center',
     maxWidth: 500,
-
+    width: '80%',
+    position: 'absolute',
+    top: '20%',
+    left: '35%',
+    overflow: 'auto',
     // backgroundColor:'white',
     opacity: 1,
   },

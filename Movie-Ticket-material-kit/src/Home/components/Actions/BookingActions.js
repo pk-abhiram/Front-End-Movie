@@ -67,3 +67,25 @@ export const bookingTicket = (customerId, ticketBook) => async (
     dispatch({ type: 'ERROR_BOOKING', error: error });
   }
 };
+
+export const cancelTicket = (customerId, ticketid) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const response = await Axios({
+      method: 'delete',
+      url:
+        'http://localhost:8082/Booking/delete/' + customerId + '/' + ticketid,
+      headers: {},
+    }).catch(function (error) {
+      throw new Error(error.response.data.message);
+    });
+    dispatch({
+      type: 'CANCEL_BOOKING',
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({ type: 'ERROR_BOOKING', error: error });
+  }
+};

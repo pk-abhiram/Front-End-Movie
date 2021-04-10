@@ -3,6 +3,7 @@ const initStat = {
   loading: false,
   error: null,
   show: {},
+  imageShow: [],
 };
 const MovieReducer = (state = initStat, action) => {
   switch (action.type) {
@@ -25,6 +26,14 @@ const MovieReducer = (state = initStat, action) => {
         ...state,
         loading: false,
         show: action.payload,
+        error: '',
+      };
+
+    case 'FETCH_SHOWSID_IMAGE':
+      return {
+        ...state,
+        loading: false,
+        shows: action.payload,
         error: '',
       };
 

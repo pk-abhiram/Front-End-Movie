@@ -48,7 +48,6 @@ export default function Signup() {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value, 'ROOT');
       await dispatch(addCustomer(customer));
-
       history.push('/');
     } catch {
       setError('Failed to create an account');
@@ -58,8 +57,8 @@ export default function Signup() {
   }
   // id="cardform"
   return (
-    <div id='home'>
-      <Card bg='dark' text='light' id='card'>
+    <div>
+      <Card bg='dark' text='light' id='card' className='cardSignUp'>
         <Card.Body>
           <h3 className='text-center mb-4'>
             Join to wander in a world of imagination!
@@ -74,7 +73,6 @@ export default function Signup() {
               <Form.Label>Email</Form.Label>
               <Form.Control type='email' ref={emailRef} required />
               <Form.Text muted>
-                {' '}
                 Your email id should be of the format: example@mailid.com
               </Form.Text>
             </Form.Group>

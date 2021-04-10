@@ -74,3 +74,29 @@ export const fetchCustomerByEmail = (email) => async (dispatch, getState) => {
     dispatch({ type: 'ERROR_USER', error: error });
   }
 };
+
+export const updateCustomer = (customer) => async (dispatch, getState) => {
+  try {
+    const response = await Axios({
+      method: 'put',
+      url: 'http://localhost:8082/customer/',
+      headers: {},
+      data: {
+        address: customer.address,
+        customerId: customer.customerId,
+        customerName: customer.customerName,
+        mobileNo: customer.mobileNo,
+      },
+    }).catch(function (error) {
+      throw new Error(error.response.data.message);
+    });
+
+    dispatch({
+      type: 'UPDATE_USER',
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({ type: 'ERROR_USER', error: error });
+  }
+};

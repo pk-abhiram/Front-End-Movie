@@ -15,6 +15,9 @@ import DetailCustomer from './DetailCustomer';
 import CustomerTickets from './CustomerTickets.js';
 import ExploreTheatre from './ExploreTheatre';
 import UpdateDetails from './UpdateDetails';
+import FeedBack from './Book/FeedBack';
+import ContactUs from './Contact/ContactUs';
+
 const useStyles = makeStyles(styles);
 
 function CustomerLandingPage() {
@@ -24,7 +27,6 @@ function CustomerLandingPage() {
     <div>
       <div style={{ backgroundColor: '#000' }}>
         <Header
-          brand='HOME'
           rightLinks={<HeaderLinks />}
           fixed
           color='transparent'
@@ -55,6 +57,7 @@ function CustomerLandingPage() {
                 path='/customer/tickets/'
                 component={CustomerTickets}
               />
+              <Route exact path='/customer/contactus/' component={ContactUs} />
               <Route
                 exact
                 path='/customer/detail/'
@@ -70,6 +73,7 @@ function CustomerLandingPage() {
                 path='/customer/detail/edit'
                 component={UpdateDetails}
               />
+              <Route exact path='/customer/feedback/' component={FeedBack} />
               <Route exact path='/customer' component={Location} />
             </Switch>
           </div>

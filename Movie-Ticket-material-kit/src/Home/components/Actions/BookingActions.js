@@ -89,3 +89,26 @@ export const cancelTicket = (customerId, ticketid) => async (
     dispatch({ type: 'ERROR_BOOKING', error: error });
   }
 };
+
+export const addFeedback = (feedback) => async (dispatch, getState) => {
+  try {
+    const response = await Axios({
+      method: 'post',
+      url: 'http://localhost:8082/feedback/add',
+      headers: {},
+      data: {
+        custId: feedback.custId,
+        rating: feedback.rating,
+        feedback: feedback.feedback,
+      },
+    }).catch(function (error) {
+      throw new Error(error.response.data.message);
+    });
+    dispatch({
+      type: 'ADD_FEEDBACK',
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({ type: 'ERROR_BOOKING', error: error });
+  }
+};

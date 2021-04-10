@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     width: '80%',
     position: 'absolute',
     top: '20%',
-    left: '35%',
+    left: '32%',
     overflow: 'auto',
     // backgroundColor:'white',
     opacity: 1,

@@ -4,6 +4,7 @@ const initStat = {
   error: null,
   user: null,
   customer: {},
+  customers: [],
 };
 
 const UserReducer = (state = initStat, action) => {
@@ -54,6 +55,13 @@ const UserReducer = (state = initStat, action) => {
       return {
         ...state,
         customer: action.payload,
+        loading: false,
+        error: null,
+      };
+    case 'ALL_USERS':
+      return {
+        ...state,
+        customers: action.payload,
         loading: false,
         error: null,
       };

@@ -21,7 +21,7 @@ import Footer from '../Footer/Footer';
 import ViewMovie from '../Movie/ViewMovie';
 import AddMovie from '../Movie/AddMovie';
 import UpdateMovie from '../Movie/UpdateMovie';
-
+import AllCustomers from './AllCustomers';
 const useStyles = makeStyles(styles);
 
 function Admin() {
@@ -75,6 +75,7 @@ function Admin() {
             <Route exact path='/admin/movies' component={ViewMovie} />
             <Route exact path='/admin/movies/:id' component={UpdateMovie} />
             <Route exact path='/admin/addAdmin' component={AddAdmin} />
+            <Route exact path='/admin/allcustomers' component={AllCustomers} />
             <Route exact path='/admin' component={AdminProfile} />
           </Switch>
         </div>

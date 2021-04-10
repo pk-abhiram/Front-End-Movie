@@ -8,7 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridContainer from '../../../assets/Grid/GridContainer.js';
 import GridItem from '../../../assets/Grid/GridItem.js';
 import Card from '../../../assets/Card/Card.js';
-
+import offerImage1 from '../../../assets/img/Offer1.jpg';
+import offerImage2 from '../../../assets/img/Offer2.jpeg';
 import image3 from '../../../assets/img/bg.jpg';
 import image2 from '../../../assets/img/bg2.jpg';
 import image1 from '../../../assets/img/bg3.jpg';
@@ -25,7 +26,7 @@ export default function SectionCarousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
   };
   return (
     <div>
@@ -37,6 +38,41 @@ export default function SectionCarousel() {
                 <div>
                   <img src={image1} alt='First slide' className='slick-image' />
                   <div className='slick-caption'></div>
+                </div>
+
+                <div>
+                  <div
+                    style={{
+                      background: 'url(' + offerImage1 + ')',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'contain',
+                    }}
+                  >
+                    <img
+                      src={image1}
+                      alt='First slide'
+                      className='slick-image'
+                      style={{ visibility: 'hidden' }}
+                    />
+                    <div className='slick-caption'></div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={{
+                      background: 'url(' + offerImage2 + ')',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'contain',
+                    }}
+                  >
+                    <img
+                      src={image1}
+                      alt='First slide'
+                      className='slick-image'
+                      style={{ visibility: 'hidden' }}
+                    />
+                    <div className='slick-caption'></div>
+                  </div>
                 </div>
                 <div>
                   <img

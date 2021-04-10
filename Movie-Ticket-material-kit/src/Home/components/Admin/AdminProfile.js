@@ -14,12 +14,8 @@ function Profile() {
     dispatch(fetchAdmin(user.email));
   }, [dispatch, user.email]);
 
-  useEffect(() => {
-    console.log(admin);
-  }, [admin]);
-
   return (
-    <div>
+    <div style={{ background: '#fff' }}>
       <h1>Admin Profile</h1>
       {user.displayName === 'ROOT' && (
         <Link to='/admin/addAdmin'>
@@ -33,40 +29,56 @@ function Profile() {
           </Button>
         </Link>
       )}
+      <Link to='/admin/allcustomers'>
+        <Button
+          variant='contained'
+          color='primary'
+          size='medium'
+          style={{ margin: 3 }}
+        >
+          View Customers
+        </Button>
+      </Link>
       <Card>
         <Card.Body>
           <Form noValidate autoComplete='on'>
             <Form.Group id='name'>
               <Form.Label>Admin Name</Form.Label>
-              <Form.Control
-                type='text'
-                value={admin.adminName}
-                autoFocus={true}
-                disabled={true}
-                required
-              />
+              {admin.adminName && (
+                <Form.Control
+                  type='text'
+                  value={admin.adminName}
+                  autoFocus={true}
+                  disabled={true}
+                  required
+                />
+              )}
             </Form.Group>
 
             <Form.Group id='contact'>
               <Form.Label>Admin Contact</Form.Label>
-              <Form.Control
-                type='text'
-                value={admin.adminContact}
-                disabled={true}
-                required
-              />
+              {admin.adminContact && (
+                <Form.Control
+                  type='text'
+                  value={admin.adminContact}
+                  disabled={true}
+                  required
+                />
+              )}
             </Form.Group>
 
             <Form.Group id='email'>
               <Form.Label>
                 <h5>Admin Email</h5>
               </Form.Label>
-              <Form.Control
-                type='email'
-                value={admin.email}
-                disabled={true}
-                required
-              />
+              {admin.email && (
+                <Form.Control
+                  type='email'
+                  value={admin.email}
+                  disabled={true}
+                  required
+                />
+              )}
             </Form.Group>
           </Form>
         </Card.Body>

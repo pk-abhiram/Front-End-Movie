@@ -100,3 +100,23 @@ export const updateCustomer = (customer) => async (dispatch, getState) => {
     dispatch({ type: 'ERROR_USER', error: error });
   }
 };
+
+export const allCustomers = () => async (dispatch, getState) => {
+  try {
+    const response = await Axios({
+      method: 'get',
+      url: 'http://localhost:8082/customer/',
+      headers: {},
+    }).catch(function (error) {
+      throw new Error(error.response.data.message);
+    });
+
+    dispatch({
+      type: 'ALL_USERS',
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({ type: 'ERROR_USER', error: error });
+  }
+};

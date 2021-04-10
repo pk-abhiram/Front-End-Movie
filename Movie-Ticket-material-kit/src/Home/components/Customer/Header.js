@@ -16,6 +16,7 @@ import Menu from '@material-ui/icons/Menu';
 // core components
 import styles from 'assets/jss/material-kit-react/components/headerStyle.js';
 import { Link } from 'react-router-dom';
+import logo from '../../../assets/img/logo3.png';
 
 const useStyles = makeStyles(styles);
 
@@ -54,7 +55,7 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks, leftLinks, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
@@ -64,7 +65,7 @@ export default function Header(props) {
   const brandComponent = (
     <Link to='/customer' style={{ color: '#fff' }}>
       <Button color='inherit'>
-        <h3>{brand}</h3>
+        <img src={logo} width='180px' alt='LOGO' />
       </Button>
     </Link>
   );
@@ -132,7 +133,7 @@ Header.propTypes = {
   ]),
   rightLinks: PropTypes.node,
   leftLinks: PropTypes.node,
-  brand: PropTypes.string,
+
   fixed: PropTypes.bool,
   absolute: PropTypes.bool,
   // this will cause the sidebar to change the color from

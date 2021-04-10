@@ -18,6 +18,8 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import { fetchCustomerByEmail } from '../../Actions/UserActions';
 import { bookingTicket } from '../../Actions/BookingActions';
 import hist from 'Home/components/Theatre/hist';
+import Alert from '@material-ui/lab/Alert';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -45,6 +47,9 @@ function BookShow() {
   const [child, setChild] = useState([]);
   const [seatVisible, setSeatVisible] = useState(false);
   const [total, setTotal] = useState(0);
+  const [totalFinal, setTotalFinal] = useState(0);
+  const couponRef = useRef();
+  const [couponMsg, setCouponMsg] = useState('');
   var user = useAuth().currentUser;
   const modePaymentRef = useRef();
   useEffect(() => {
@@ -84,7 +89,20 @@ function BookShow() {
       return (totalCost += price);
     });
     setTotal(totalCost);
+    setTotalFinal(totalCost);
   }, [child, screen.columns]);
+
+  const handleCoupon = (e) => {
+    if (couponRef.current.value === '15%OFF') {
+      setCouponMsg('Success!!! 15 % OFF');
+      return setTotal((85 * totalFinal) / 100);
+    }
+    if (couponRef.current.value === 'FLAT20') {
+      setCouponMsg('Success!!! 20 % OFF');
+      return setTotal((80 * totalFinal) / 100);
+    }
+    return setCouponMsg('INVALID');
+  };
 
   const submitBook = (e) => {
     e.preventDefault();
@@ -95,7 +113,7 @@ function BookShow() {
     var noOfSeats = child.length;
     var showGetId = showId.showId;
     var transactionMode = modePaymentRef.current.value;
-    var totalCost = 0;
+
     var customerId = customer.customerId;
     child.map((c) => {
       var type = '';
@@ -112,7 +130,7 @@ function BookShow() {
         price = 150;
       }
       seat.push({ seatNumber: c, type: type, price: price });
-      return (totalCost += price);
+      return ' ';
     });
 
     const ticket = {
@@ -122,13 +140,12 @@ function BookShow() {
     const ticketBooking = {
       showId: showGetId,
       ticket: ticket,
-      totalCost: totalCost,
+      totalCost: total,
       transactionMode: transactionMode,
     };
-    console.log(customerId, ticketBooking);
 
     dispatch(bookingTicket(customerId, ticketBooking));
-    hist.push('/customer/tickets/');
+    hist.push('/customer/feedback/');
   };
 
   return (
@@ -239,14 +256,13 @@ function BookShow() {
 
       <div className={classes.paper}>
         <Button
-          className={classes.paper}
           onClick={() => {
             setVisible(!visible);
           }}
           variant='contained'
-          color='secondary'
+          color='primary'
         >
-          Book Ticket
+          Book Tickets
         </Button>
       </div>
 
@@ -282,7 +298,12 @@ function BookShow() {
                 />
               </Dialog>
             )}
-            <form className={classes.root} noValidate autoComplete='off'>
+            <form
+              className={classes.root}
+              noValidate
+              autoComplete='off'
+              onSubmit={submitBook}
+            >
               <FormControl
                 className={classes.formControl}
                 style={{ width: '150px', margin: '30px' }}
@@ -303,25 +324,49 @@ function BookShow() {
                   <option value={'CASH'}>CASH</option>
                 </NativeSelect>
               </FormControl>
-              <InputLabel htmlFor='uncontrolled-native'>
-                Total Price:
-              </InputLabel>
+              <InputLabel>Enter Coupon:</InputLabel>
               <FormControl>
                 <TextField
                   id='standard-basic'
-                  value={total}
-                  disabled={true}
                   style={{ margin: '10px' }}
+                  inputRef={couponRef}
                 />
+                <Button
+                  size='small'
+                  onClick={handleCoupon}
+                  style={{ marginBottom: '20px' }}
+                >
+                  Check
+                </Button>
+                {couponMsg.startsWith('Success') ? (
+                  <Alert severity='success'>{couponMsg}</Alert>
+                ) : (
+                  couponMsg && <Alert severity='error'>{couponMsg}</Alert>
+                )}
               </FormControl>
-            </form>
-            <form onSubmit={submitBook}>
-              <FormControl style={{ marginBottom: '35px' }}>
-                <InputLabel>
-                  <Button type='submit' color='secondary' variant='contained'>
-                    BOOK
-                  </Button>
-                </InputLabel>
+              <InputLabel style={{ marginTop: '10px' }}>
+                Total Price:
+              </InputLabel>
+              <FormControl>
+                {couponMsg.startsWith('Success') ? (
+                  <h6>
+                    <s>{totalFinal}</s>
+                    {'  '}
+                    {total}
+                  </h6>
+                ) : (
+                  <h6>{totalFinal}</h6>
+                )}
+              </FormControl>
+              <FormControl fullWidth={true}>
+                <Button
+                  type='submit'
+                  color='secondary'
+                  variant='contained'
+                  style={{ width: '15%', margin: '0 auto' }}
+                >
+                  BOOK
+                </Button>
               </FormControl>
             </form>
           </div>

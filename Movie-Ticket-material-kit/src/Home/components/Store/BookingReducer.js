@@ -38,6 +38,13 @@ const BookingReducer = (state = initStat, action) => {
         error: '',
       };
 
+    case 'ADD_FEEDBACK':
+      return {
+        ...state,
+        loading: false,
+        error: '',
+      };
+
     case 'ERROR_BOOKING':
       return {
         ...state,

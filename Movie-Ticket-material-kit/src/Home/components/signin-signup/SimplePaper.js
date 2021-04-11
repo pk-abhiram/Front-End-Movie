@@ -12,12 +12,10 @@ const useStyles = makeStyles({
   root: {
     // align: 'center',
     alignItems: 'center',
-    maxWidth: 500,
-    width: '50%',
 
     position: 'absolute',
     top: '0%',
-    left: '35%',
+    margin: '0 auto',
     // backgroundColor:'white',
     opacity: 1,
   },

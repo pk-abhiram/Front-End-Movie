@@ -46,7 +46,11 @@ export default function Signup() {
       };
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value, 'ROOT');
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        'CUSTOMER'
+      );
       await dispatch(addCustomer(customer));
       history.push('/');
     } catch {

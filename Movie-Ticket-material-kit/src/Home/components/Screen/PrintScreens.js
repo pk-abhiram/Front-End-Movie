@@ -14,6 +14,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchScreens, deleteScreenByID } from '../Actions/ScreenActions';
 import DeleteIcon from '@material-ui/icons/Delete';
+import firebase from 'firebase';
+require('firebase/auth');
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
@@ -39,14 +41,24 @@ export const CustomLocaleTextGrid = () => {
   };
 
   async function deleteScreen(id) {
-    if (password === 'password') {
-      await dispatch(deleteScreenByID(id));
-      setDel(!del);
+    var user = firebase.auth().currentUser;
+    var credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+    user
+      .reauthenticateWithCredential(credential)
+      .then(function () {
+        // User re-authenticated.
+        dispatch(deleteScreenByID(id));
+        setDel(!del);
 
-      return <div>{console.log('Deleted' + id)}</div>;
-    } else {
-      alert('Incorrect Password');
-    }
+        return <div>{console.log('Deleted' + id)}</div>;
+      })
+      .catch(function (error) {
+        // An error happened.
+        return alert('Incorrect Password');
+      });
   }
   const handleClickOpen = () => {
     setOpen(true);

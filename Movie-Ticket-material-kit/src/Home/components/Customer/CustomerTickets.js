@@ -10,6 +10,8 @@ import { fetchShowForImage } from '../Actions/ShowActions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { cancelTicket } from '../Actions/BookingActions';
+import firebase from 'firebase';
+require('firebase/auth');
 
 function CustomerTickets() {
   var user = useAuth().currentUser;
@@ -37,7 +39,24 @@ function CustomerTickets() {
   }, [showsI, dispatch]);
 
   function cancelBooking(custId, ticketId) {
-    dispatch(cancelTicket(custId, ticketId));
+    var user = firebase.auth().currentUser;
+    var password = prompt('Enter Password To Confirm');
+    var credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+    // Prompt the user to re-provide their sign-in credentials
+
+    user
+      .reauthenticateWithCredential(credential)
+      .then(function () {
+        // User re-authenticated.
+        dispatch(cancelTicket(custId, ticketId));
+      })
+      .catch(function (error) {
+        // An error happened.
+        return alert(error);
+      });
   }
   return (
     <div style={{ padding: '30px' }}>

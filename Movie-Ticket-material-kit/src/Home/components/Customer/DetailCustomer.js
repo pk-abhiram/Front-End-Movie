@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import { fetchCustomerByEmail } from '../Actions/UserActions';
 import { useDispatch, useSelector } from 'react-redux';
 import hist from '../Theatre/hist';
-
+import firebase from 'firebase';
+require('firebase/auth');
 function DetailCustomer() {
   var user = useAuth().currentUser;
   const [error, setError] = useState('');
@@ -29,13 +30,51 @@ function DetailCustomer() {
   }
   async function deleteU() {
     setError('');
-    try {
-      await deleteUser();
-      history.push('/');
-    } catch {
-      setError('Failed to log out');
-    }
+
+    var user = firebase.auth().currentUser;
+    var password = prompt('Enter Password To Confirm');
+    var credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+    // Prompt the user to re-provide their sign-in credentials
+
+    user
+      .reauthenticateWithCredential(credential)
+      .then(async function () {
+        // User re-authenticated.
+        await deleteUser();
+        history.push('/');
+      })
+      .catch(function (error) {
+        // An error happened.
+        setError('Failed to log out');
+        return alert(error);
+      });
   }
+
+  const tryAuth = () => {
+    var user = firebase.auth().currentUser;
+    var password = prompt('Enter Password To Confirm');
+    var credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+    // Prompt the user to re-provide their sign-in credentials
+
+    user
+      .reauthenticateWithCredential(credential)
+      .then(function () {
+        // User re-authenticated.
+
+        hist.push('/customer/detail/edit/');
+      })
+      .catch(function (error) {
+        // An error happened.
+        return alert(error);
+      });
+  };
+
   return (
     <div>
       <form>
@@ -70,7 +109,7 @@ function DetailCustomer() {
             <Button
               variant='contained'
               onClick={() => {
-                hist.push('/customer/detail/edit/');
+                tryAuth();
               }}
               color='primary'
               style={{ margin: '10px' }}

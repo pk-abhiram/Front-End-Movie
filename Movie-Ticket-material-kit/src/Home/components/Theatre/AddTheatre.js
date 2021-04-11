@@ -55,8 +55,6 @@ function AddTheatre() {
     { id: uuidv4(), screenName: '', columns: 1, rows: 1 },
   ]);
 
-  const fetchTheatre = useSelector((state) => state.theatre.theatre);
-
   const theatreNameRef = React.useRef();
   const theatreCityRef = React.useRef();
   const managerNameRef = React.useRef();
@@ -98,17 +96,12 @@ function AddTheatre() {
         movieArr: movieArr,
       };
       dispatch(addTheatre(theatre));
-      detailRedirect();
+      hist.push('/admin/theatre/');
     } catch (Exception) {
       console.log(Exception.message);
     }
   };
 
-  const detailRedirect = () => {
-    if (fetchTheatre.theatreId !== undefined) {
-      hist.push('/admin/theatre/detail/' + fetchTheatre.theatreId);
-    }
-  };
   const handleChangeInput = (id, event) => {
     const newInputFields = inputFields.map((i) => {
       if (id === i.id) {

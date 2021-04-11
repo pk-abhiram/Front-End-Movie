@@ -85,15 +85,10 @@ function AddMovie() {
       };
 
       dispatch(addMovie(movie));
-      detailRedirect();
+
+      hist.push('/admin/movies');
     } catch (Exception) {
       console.log(Exception.message);
-    }
-  };
-
-  const detailRedirect = () => {
-    if (fetchMovie.movieId !== undefined) {
-      hist.push('/admin/movies');
     }
   };
 

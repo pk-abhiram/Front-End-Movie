@@ -33,7 +33,6 @@ function AddScreen() {
   const [columns, setColumns] = useState(0);
   const [theatreArr, setTheatreArr] = React.useState([]);
   const fetchTheatres = useSelector((state) => state.theatre.theatres);
-  const fetchScreen = useSelector((state) => state.screen.screen);
   const screenNameRef = React.useRef();
   const rowsRef = React.useRef();
   const columnsRef = React.useRef();
@@ -41,7 +40,7 @@ function AddScreen() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(selectRef.current.innerText);
+
     try {
       if (screenName === '') {
         screenNameRef.current.focus();
@@ -69,16 +68,9 @@ function AddScreen() {
       };
 
       dispatch(addScreen(screen));
-      detailRedirect();
+      hist.push('/admin/screen/');
     } catch (Exception) {
       console.log(Exception.message);
-    }
-  };
-
-  const detailRedirect = () => {
-    console.log(fetchScreen);
-    if (fetchScreen.screenId !== undefined) {
-      hist.push('/screen/detail/' + fetchScreen.screenId);
     }
   };
 

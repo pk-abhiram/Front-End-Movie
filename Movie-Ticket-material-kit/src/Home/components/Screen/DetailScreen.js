@@ -1,3 +1,6 @@
+//To Show detail info of a screen, Each screen has theatreId,screenName,rows,columns.
+//Screens are part of theatres. Each theatre contains list of screens
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -73,6 +76,16 @@ function DetailScreen() {
         <Link to={'/admin/screen/update/' + id.id} style={{ float: 'right' }}>
           <Button variant='contained' size='medium' color='primary'>
             Edit
+          </Button>
+        </Link>
+        <Link to={'/admin/shows/addShow/' + id.id} style={{ float: 'right' }}>
+          <Button
+            variant='contained'
+            color='primary'
+            size='medium'
+            style={{ margin: 3 }}
+          >
+            Add Show
           </Button>
         </Link>
       </center>

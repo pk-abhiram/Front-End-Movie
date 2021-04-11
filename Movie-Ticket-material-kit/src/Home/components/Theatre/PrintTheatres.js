@@ -1,3 +1,5 @@
+//To Print all theatres in Datagrid.
+
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';

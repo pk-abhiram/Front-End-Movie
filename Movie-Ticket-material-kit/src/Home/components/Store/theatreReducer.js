@@ -1,9 +1,12 @@
+//initializing
 const initStat = {
   theatres: [],
   loading: false,
   error: null,
   theatre: {},
 };
+
+//Reducer-to change state according to action dispatched by Action creators
 const TheatreReducer = (state = initStat, action) => {
   switch (action.type) {
     case 'LOADING_THEATRE':

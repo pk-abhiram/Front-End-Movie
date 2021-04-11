@@ -22,6 +22,9 @@ import ViewMovie from '../Movie/ViewMovie';
 import AddMovie from '../Movie/AddMovie';
 import UpdateMovie from '../Movie/UpdateMovie';
 import AllCustomers from './AllCustomers';
+import ViewShow from '../Show/ViewShow';
+import AddShow from '../Show/AddShow';
+
 const useStyles = makeStyles(styles);
 
 function Admin() {
@@ -73,6 +76,8 @@ function Admin() {
             <Route exact path='/admin/screen/addScreen' component={AddScreen} />
             <Route exact path='/admin/movies/addMovie' component={AddMovie} />
             <Route exact path='/admin/movies' component={ViewMovie} />
+            <Route exact path='/admin/shows' component={ViewShow} />
+            <Route exact path='/admin/shows/addShow/:id' component={AddShow} />
             <Route exact path='/admin/movies/:id' component={UpdateMovie} />
             <Route exact path='/admin/addAdmin' component={AddAdmin} />
             <Route exact path='/admin/allcustomers' component={AllCustomers} />

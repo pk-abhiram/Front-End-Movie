@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import { error } from 'jquery';
 
+//update a theatre
 export const updateTheatre = (theatre) => async (dispatch, getState) => {
   try {
     const response = await Axios({
@@ -26,6 +27,7 @@ export const updateTheatre = (theatre) => async (dispatch, getState) => {
   }
 };
 
+//fetch all theatres
 export const fetchTheatre = () => async (dispatch, getState) => {
   dispatch({ type: 'LOADING_THEATRE' });
   try {
@@ -46,6 +48,7 @@ export const fetchTheatre = () => async (dispatch, getState) => {
   }
 };
 
+//fetch a theatre by ID
 export const detailTheatre = (id) => async (dispatch, getState) => {
   dispatch({ type: 'LOADING_THEATRE' });
   try {
@@ -64,6 +67,7 @@ export const detailTheatre = (id) => async (dispatch, getState) => {
   }
 };
 
+//delete a theatre by ID
 export const deleteTheatreByID = (id) => async (dispatch, getState) => {
   dispatch({ type: 'LOADING_THEATRE' });
   try {
@@ -81,6 +85,7 @@ export const deleteTheatreByID = (id) => async (dispatch, getState) => {
   }
 };
 
+//Add a theatre
 export const addTheatre = (theatre) => async (dispatch, getState) => {
   try {
     const response = await Axios({

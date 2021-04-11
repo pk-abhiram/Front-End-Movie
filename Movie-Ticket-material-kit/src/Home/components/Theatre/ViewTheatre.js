@@ -1,3 +1,6 @@
+//Landing Page of Theatre.
+//This component renders print theatres
+
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTheatre } from '../Actions/TheatreActions';

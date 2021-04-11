@@ -1,3 +1,6 @@
+//To print list of screens using Datagrid, Each screen has theatreId,screenName,rows,columns.
+//Datagrid helps us to show rows in ordered manner and have filter attribute to search
+
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
@@ -166,6 +169,7 @@ export const CustomLocaleTextGrid = () => {
           Add Screen
         </Button>
       </Link>
+
       <br />
       {(loading && <CircularProgress />) ||
         (error && <Alert severity='error'>{error}</Alert>) ||

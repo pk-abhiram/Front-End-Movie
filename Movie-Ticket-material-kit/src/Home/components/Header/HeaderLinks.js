@@ -81,6 +81,19 @@ export default function HeaderLinks(props) {
           </Tooltip>
         </Link>
       </ListItem>
+      <ListItem className={classes.listItem}>
+        <Link to='/admin/shows'>
+          <Tooltip
+            title='Show Management'
+            placement={window.innerWidth > 959 ? 'top' : 'left'}
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <Button color='transparent' className={classes.navLink}>
+              Show
+            </Button>
+          </Tooltip>
+        </Link>
+      </ListItem>
 
       <ListItem className={classes.listItem}>
         {/*<Tooltip title="Delete">

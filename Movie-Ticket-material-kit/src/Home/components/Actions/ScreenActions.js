@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import { error } from 'jquery';
 
+//fetch all screens
 export const fetchScreens = () => async (dispatch, getState) => {
   dispatch({ type: 'LOADING_SCREEN' });
 
@@ -23,6 +24,7 @@ export const fetchScreens = () => async (dispatch, getState) => {
   }
 };
 
+//delete a screen by ID
 export const deleteScreenByID = (id) => async (dispatch, getState) => {
   dispatch({ type: 'LOADING_SCREEN' });
   try {
@@ -40,6 +42,7 @@ export const deleteScreenByID = (id) => async (dispatch, getState) => {
   }
 };
 
+//fetch a screen by ID
 export const detailScreen = (id) => async (dispatch, getState) => {
   dispatch({ type: 'LOADING_SCREEN' });
   try {
@@ -58,6 +61,7 @@ export const detailScreen = (id) => async (dispatch, getState) => {
   }
 };
 
+//Update a screen
 export const updateScreen = (screen) => async (dispatch, getState) => {
   try {
     const response = await Axios({
@@ -82,6 +86,7 @@ export const updateScreen = (screen) => async (dispatch, getState) => {
   }
 };
 
+//Add a screen
 export const addScreen = (screen) => async (dispatch, getState) => {
   try {
     const response = await Axios({

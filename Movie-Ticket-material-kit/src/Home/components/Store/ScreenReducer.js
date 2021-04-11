@@ -1,3 +1,4 @@
+//initializing
 const initStat = {
   screens: [],
   loading: false,
@@ -5,6 +6,7 @@ const initStat = {
   screen: {},
 };
 
+//Reducer-to change state according to action dispatched by Action creators
 const ScreenReducer = (state = initStat, action) => {
   switch (action.type) {
     case 'LOADING_SCREEN':

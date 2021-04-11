@@ -1,3 +1,6 @@
+//To Add a screen in database, Each screen has theatreId,screenName,rows,columns.
+//Screens are part of theatres. Each theatre contains list of screens
+
 import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';

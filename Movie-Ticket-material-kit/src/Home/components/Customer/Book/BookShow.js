@@ -355,7 +355,7 @@ function BookShow() {
                     {total}
                   </h6>
                 ) : (
-                  <h6>{totalFinal}</h6>
+                  <h6 id='counter'>{totalFinal}</h6>
                 )}
               </FormControl>
               <FormControl fullWidth={true}>

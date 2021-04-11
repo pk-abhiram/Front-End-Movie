@@ -41,10 +41,7 @@ export default function TeamSection() {
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                 <img src={team1} alt='...' className={imageClasses} />
               </GridItem>
-              <h4 className={classes.cardTitle}>
-                Sravani B
-                <br />
-              </h4>
+              <h4 className={classes.cardTitle}>Sravani B</h4>
               <CardBody>
                 <p className={classes.description}>
                   201710100281@presidencyuniversity.in
@@ -57,10 +54,7 @@ export default function TeamSection() {
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                 <img src={team2} alt='...' className={imageClasses} />
               </GridItem>
-              <h4 className={classes.cardTitle}>
-                Archana M P
-                <br />
-              </h4>
+              <h4 className={classes.cardTitle}>Archana M P</h4>
               <CardBody>
                 <p className={classes.description}>
                   201710100255@presidencyuniversity.in
@@ -73,10 +67,7 @@ export default function TeamSection() {
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                 <img src={team3} alt='...' className={imageClasses} />
               </GridItem>
-              <h4 className={classes.cardTitle}>
-                Bhargavi R
-                <br />
-              </h4>
+              <h4 className={classes.cardTitle}>Bhargavi R</h4>
               <CardBody>
                 <p className={classes.description}>
                   201710101100@presidencyuniversity.in
@@ -91,10 +82,7 @@ export default function TeamSection() {
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                 <img src={team4} alt='...' className={imageClasses} />
               </GridItem>
-              <h4 className={classes.cardTitle}>
-                Arjun Singh Kushwah
-                <br />
-              </h4>
+              <h4 className={classes.cardTitle}>Arjun Singh Kushwah</h4>
               <CardBody>
                 <p className={classes.description}>
                   201710100990@presidencyuniversity.in
@@ -107,10 +95,7 @@ export default function TeamSection() {
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                 <img src={team5} alt='...' className={imageClasses} />
               </GridItem>
-              <h4 className={classes.cardTitle}>
-                Abhiram PK
-                <br />
-              </h4>
+              <h4 className={classes.cardTitle}>Abhiram PK</h4>
               <CardBody>
                 <p className={classes.description}>
                   201710100188@presidencyuniversity.in

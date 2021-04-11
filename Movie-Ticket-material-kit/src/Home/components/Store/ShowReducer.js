@@ -28,12 +28,27 @@ const MovieReducer = (state = initStat, action) => {
         show: action.payload,
         error: '',
       };
+    case 'DELETE_SHOW':
+      return {
+        ...state,
+        loading: false,
+        show: action.payload,
+        error: '',
+      };
 
     case 'FETCH_SHOWSID_IMAGE':
       return {
         ...state,
         loading: false,
         shows: action.payload,
+        error: '',
+      };
+
+    case 'ADD_SHOW':
+      return {
+        ...state,
+        loading: false,
+        show: action.payload,
         error: '',
       };
 
